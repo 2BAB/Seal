@@ -19,6 +19,11 @@ That's because some out-of-date libraries set `debuggable` at AndroidManifest, b
 
 There is a library which defined `android:allowBackup=true` conflicts with yours (`android:allowBackup=false`). You wanna to override it using `tools:replace="android:allowBackup"`, but find that `tools:replace="android:allowBackup"` is also present at lib's manifest, finally the conflict shows above. (Also see [this](http://stackoverflow.com/questions/35131182/manifest-merge-in-android-studio))   
 
+> 3. Sometimes xmlns is wrote in application or any other tags except manifest tag, may cause aapt's 
+concealed defect，like debuggable setting of build.gradle would not work;
+
+About this issue, more information [here](http://2bab.me/2017/09/19/gradle-daily-crash-debuggable-not-work/).
+
 ...
 
 All of these are what we face with, and **Seal** trying to solve.
@@ -61,12 +66,19 @@ def manifestPath = [
         projectRoot + '/app/build/intermediates/exploded-aar'
 ]
 
+// remove some attrs of application tag
 def removeAttrs = [
         'android:debuggable'
 ]
 
+// remove some value of application's replace attr
 def replaceValues = [
         'android:allowBackup'
+]
+
+// sweep useless xmlns except the first one
+def sweepXmlns = [
+        'android=\"http://schemas.android.com/apk/res/android\"'
 ]
 
 
@@ -83,20 +95,32 @@ seal {
         enabled = true
         valuesShouldRemove = replaceValues
     }
+    
+    xmlnsSweep {
+        enabled = true
+        xmlnsShouldSweep = sweepXmlns
+    }
+
 }
 ```
 
-Note: If `build-cache` is enable, Seal recommends that custom build cache folder placed in the Project Folder. 
+Note: 
+
+- If `build-cache` is enable, Seal recommends that custom build cache folder placed in the Project Folder. 
  
-```
-//gradle.properties
-android.buildCacheDir=./build-cache
-...
-```
+    ```
+    //gradle.properties
+    android.buildCacheDir=./build-cache
+    ...
+    ```
+   
+- Currently (v1.1.0), `xmlnsSweep` should always enable and config it with `android` namespace, because there is a bug of `groovy.util.Node` may add useless xmlns sometimes.
 
 ## Sample
 
-before:
+### precheck
+
+A library's AndroidManifest.xml before precheck:
 
 ``` xml
 <application
@@ -106,10 +130,11 @@ before:
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup" >
+        ...
 </application>
 ```
 
-after:
+And after precheck:
 
 ``` xml
 <application
@@ -120,7 +145,91 @@ after:
 </application>
 ```
 
+### post process (for now only xmlns sweep)
+
+After `process{variant}Manifest` task, a intermediate (AndroidManifest.xml) file will generate at /application_module/build/intermediate/manifests, so we sweep it at this time before aapt's processing.  
+
+origin:
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.debuggbaletest"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="26" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="26.0.0-alpha1" />
+
+    <application
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.example.debuggbaletest.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+```
+
+after sweep:
+
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.debuggbaletest"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="26" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="26.0.0-alpha1" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.example.debuggbaletest.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+```
+
+The xmlns of application tag cleared by Seal.
+
 ## Changelog
+
+### v1.1.0
+
+- Support Sweeping useless xmlns (which may cause aapt's concealed defect)
 
 ### v1.0.0
 
