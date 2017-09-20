@@ -39,7 +39,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'me.xx2bab.gradle:seal-manifest-precheck-plugin:1.0.0'
+        classpath 'me.xx2bab.gradle:seal-manifest-precheck-plugin:1.1.0'
     }
 }
 
