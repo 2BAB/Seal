@@ -10,7 +10,7 @@ class AppReplaceValuesExtension {
     Iterable<String> valuesShouldRemove
 
     AppReplaceValuesExtension() {
-        enabled = true
+        enabled = false
         valuesShouldRemove = []
     }
 }

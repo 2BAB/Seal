@@ -1,12 +1,13 @@
 package me.xx2bab.gradle.seal
 
-import com.android.build.gradle.AppPlugin
 import me.xx2bab.gradle.seal.base.Constants
 import me.xx2bab.gradle.seal.base.ManifestPiper
 import me.xx2bab.gradle.seal.node.AppAttrsExtension
-import me.xx2bab.gradle.seal.node.AppAttrsChecker
+import me.xx2bab.gradle.seal.node.AppAttrsPreChecker
 import me.xx2bab.gradle.seal.replace.AppReplaceValuesExtension
-import me.xx2bab.gradle.seal.replace.AppReplaceValuesChecker
+import me.xx2bab.gradle.seal.replace.AppReplaceValuesPreChecker
+import me.xx2bab.gradle.seal.xmlns.XmlnsSweepExtension
+import me.xx2bab.gradle.seal.xmlns.XmlnsSweeper
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -21,10 +22,6 @@ class SealPlugin implements Plugin<Project> {
     private FileTree manifestFiles
 
     void apply(Project project) {
-
-        if (!project.plugins.hasPlugin(AppPlugin)) {
-            throw new IllegalStateException("'com.android.application' plugin required.")
-        }
 
         initExtension(project)
 
@@ -53,12 +50,12 @@ class SealPlugin implements Plugin<Project> {
                 processManifestTask.outputs.upToDateWhen { false }
 
                 // init checkers
-                AppAttrsChecker appAttrsChecker = new AppAttrsChecker(config.remove.enabled,
+                AppAttrsPreChecker appAttrsChecker = new AppAttrsPreChecker(config.remove.enabled,
                         config.remove.attrsShouldRemove)
-                AppReplaceValuesChecker appReplaceValuesChecker = new AppReplaceValuesChecker(config.replace.enabled,
+                AppReplaceValuesPreChecker appReplaceValuesChecker = new AppReplaceValuesPreChecker(config.replace.enabled,
                         config.replace.valuesShouldRemove)
 
-                // add precheck task before
+                // add precheck task
                 def checkTask = project.task("precheck${variantName}Manifest").doLast {
                     for (manifestFile in manifestFiles) {
                         new ManifestPiper(manifestFile)
@@ -68,6 +65,17 @@ class SealPlugin implements Plugin<Project> {
                     }
                 }
                 processManifestTask.dependsOn checkTask
+
+                // init postprocessor
+                XmlnsSweeper xmlnsSweeper = new XmlnsSweeper(config.xmlns)
+
+                // add postprocessor
+                processManifestTask.doLast {
+                    processManifestTask.outputs.getFiles().each {
+                        def processManifestOutputFilePath = it.absolutePath
+                        xmlnsSweeper.sweep(processManifestOutputFilePath)
+                    }
+                }
             }
         }
 
@@ -79,6 +87,7 @@ class SealPlugin implements Plugin<Project> {
         config.plugin = project.extensions.create("seal", SealExtension, project)
         config.remove = project.seal.extensions.create('appAttrs', AppAttrsExtension)
         config.replace = project.seal.extensions.create('appReplaceValues', AppReplaceValuesExtension)
+        config.xmlns = project.seal.extensions.create('xmlnsSweep', XmlnsSweepExtension)
     }
 
 }

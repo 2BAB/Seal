@@ -7,7 +7,7 @@ class ManifestPiper {
 
     Node manifestRoot
 
-    ManifestPiper pipe(IManifestChecker checker) {
+    ManifestPiper pipe(IManifestPreChecker checker) {
         if (!checker.isEnabled()) {
             println(Constants.TAG + ": ${checker.class.simpleName} is disabled.")
         }

@@ -3,7 +3,7 @@ package me.xx2bab.gradle.seal.base
 /**
  * Created by 2bab
  */
-interface IManifestChecker {
+interface IManifestPreChecker {
 
     void check(Node manifestRoot)
 

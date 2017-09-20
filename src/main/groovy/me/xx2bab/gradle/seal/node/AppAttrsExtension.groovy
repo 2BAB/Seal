@@ -10,7 +10,7 @@ class AppAttrsExtension {
     Iterable<String> attrsShouldRemove
 
     AppAttrsExtension() {
-        enabled = true
+        enabled = false
         attrsShouldRemove = []
     }
 

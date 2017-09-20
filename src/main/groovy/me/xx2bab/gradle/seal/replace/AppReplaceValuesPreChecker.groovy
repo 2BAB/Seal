@@ -1,24 +1,28 @@
 package me.xx2bab.gradle.seal.replace
 
 import me.xx2bab.gradle.seal.base.Constants
-import me.xx2bab.gradle.seal.base.IManifestChecker
+import me.xx2bab.gradle.seal.base.IManifestPreChecker
 
 /**
  * Created by 2bab
  */
-class AppReplaceValuesChecker implements IManifestChecker {
+class AppReplaceValuesPreChecker implements IManifestPreChecker {
 
     boolean enabled
 
     Iterable<String> valuesShouldRemove
 
-    AppReplaceValuesChecker(boolean enabled, Iterable<String> valuesShouldRemove) {
+    AppReplaceValuesPreChecker(boolean enabled, Iterable<String> valuesShouldRemove) {
         this.enabled = enabled
         this.valuesShouldRemove = valuesShouldRemove
     }
 
     @Override
     void check(Node manifestRoot) {
+        if (!enabled) {
+            return
+        }
+
         def applicationNodes = manifestRoot.application
         applicationNodes.each { appNode ->
             String replaceValue = appNode.attribute(Constants.NS_TOOLS.replace).toString()
