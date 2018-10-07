@@ -59,21 +59,8 @@ apply plugin: 'me.2bab.seal'
 ```
 
 2. Configurations:
+
 ``` gradle
-def projectRoot = project.getRootProject().rootDir.absolutePath
-
-// Folders may include AndroidManifest.xml files
-// 1. For gradle plugin 2.3.0 or higher, build-cache is default choice,
-// 2. But we should make sure snapshot-libs will be checked too.
-// 3. Free to add your folders for more customization 
-def manifestPath = [
-        // for AAR of Release
-        // see note below
-        projectRoot + '/build-cache', 
-        // for AAR of SNAPSHOT
-        projectRoot + '/app/build/intermediates/exploded-aar'
-]
-
 // remove some attrs of application tag
 def removeAttrs = [
         'android:debuggable'
@@ -92,7 +79,6 @@ def sweepXmlns = [
 
 seal {
     enabled = true
-    manifests = manifestPath
 
     appAttrs {
         enabled = true
@@ -114,15 +100,13 @@ seal {
 
 Note: 
 
-- If `build-cache` is enable, Seal recommends that custom build cache folder placed in the Project Folder. 
+- If `build-cache` is enable (for those who update Android Gradle Plugin to above 3.0.0, this feature is enabled by default), Seal recommends that custom build cache folder placed in the Project Folder to avoid impact other projects while you are modifying the manifest of libraries. 
  
     ```
     //gradle.properties
     android.buildCacheDir=./build-cache
     ...
     ```
-   
-- Currently (v1.1.0), `xmlnsSweep` should always enable and config it with `android` namespace, because there is a bug of `groovy.util.Node` may add useless xmlns sometimes.
 
 ## Sample
 
@@ -234,6 +218,11 @@ after sweep:
 The xmlns of application tag cleared by Seal.
 
 ## Changelog
+
+### v2.0.0
+- Support getting Manifest files automatically
+- Support AAPT2 only
+- This version is only for testing since AAPT2 works well so far until I find some bugs that I have to make a workaround by myself
 
 ### v1.1.0
 
