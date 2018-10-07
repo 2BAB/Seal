@@ -1,8 +1,8 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
-def projectName = "Seal-Manifest-Precheck-Plugin"
-def mavenDesc = 'Precheck Android Manifest Before Merge-Conflict.'
+def projectName = "seal"
+def mavenDesc = 'A Gradle Plugin helps resolve conflicts when merge Android Manifest files.'
 def baseUrl = 'https://github.com/2BAB/Seal'
 def siteUrl = baseUrl
 def gitUrl = "${baseUrl}.git"
@@ -11,7 +11,7 @@ def issueUrl = "${baseUrl}/issues"
 def licenseIds = ['Apache-2.0']
 def licenseNames = ['The Apache Software License, Version 2.0']
 def licenseUrls = ['http://www.apache.org/licenses/LICENSE-2.0.txt']
-def inception = '2017'
+def inception = '2018'
 
 def username = '2BAB'
 
@@ -70,11 +70,22 @@ artifacts {
     archives sourcesJar
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def btUser = null
+def btApiKey = null
+
+if (travisBuild) {
+    btUser = System.getenv("BINTRAY_USER")
+    btApiKey = System.getenv("BINTRAY_API_KEY")
+} else {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    btUser = properties.getProperty("bintray.user")
+    btApiKey = properties.getProperty("bintray.apikey")
+}
+
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = btUser
+    key = btApiKey
     configurations = ['archives']
     pkg {
         repo = 'maven'
@@ -83,7 +94,7 @@ bintray {
         websiteUrl = siteUrl
         issueTrackerUrl = issueUrl
         vcsUrl = gitUrl
-        labels = ['gradle', 'plugin', 'icon', 'cover']
+        labels = ['gradle', 'plugin', 'seal', '2BAB', 'manifest', 'conflict']
         licenses = licenseIds
         publish = true
         publicDownloadNumbers = true
