@@ -1,11 +1,18 @@
 # Seal 
 
-[![Download](https://api.bintray.com/packages/2bab/maven/Seal-Manifest-Precheck-Plugin/images/download.svg)](https://bintray.com/2bab/maven/Seal-Manifest-Precheck-Plugin/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[ ![Download](https://api.bintray.com/packages/2bab/maven/seal/images/download.svg) ](https://bintray.com/2bab/maven/seal/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Seal is a gradle plugin to do precheck of Android Manifest. 
 
 English | [中文说明](http://2bab.me/2017/05/23/gradle-daily-crash-aar-replace-conflict/)
 
+**Notice:**
+
+**Since most of developers has transformed to AAPT2 already, so I decide to update this plugin as well. Luckily, I found that Google has fixed almost all issues of AAPT1 in AAPT2, hence Seal is no longer needed (means for now AAPT2 works well until I find any other new issues I have to make a workaround by myself).** 
+
+**I published Seal 2.x only because I found a new way to get the Manifest files automatically, it only works above 3.0.0 of Android Gradle Plugin. If you still use the AAPT1 and meet some problems on Manifest Merging, please use the [Seal@1.x](https://github.com/2BAB/Seal/tree/master)**
+
+**In Summary, you don't need Seal 2.x so far. Just upgrade to AAPT2 and have fun. If you want to find a way to modify the manifest freely, check another project here: [Weaving](https://github.com/2BAB/Weaving).**
 
 ## Conflict / Warning When Manifest Merge 
 
@@ -31,6 +38,7 @@ All of these are what we face with, and **Seal** trying to solve.
 ## Quick Start
 
 1. Compile&apply Seal plugin:
+
 ```
 // project's build.gradle
 buildscript {
@@ -38,15 +46,15 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'me.xx2bab.gradle:seal-manifest-precheck-plugin:1.1.0'
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'me.2bab:seal:2.0.0'
     }
 }
 
 ...
 
 // app's build.gradle
-apply plugin: 'seal'
+apply plugin: 'me.2bab.seal'
 
 ```
 
@@ -251,3 +259,4 @@ The xmlns of application tag cleared by Seal.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
