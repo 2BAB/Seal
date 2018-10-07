@@ -1,2 +1,14 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.xx2bab.seal.lib" />
+<manifest package="me.xx2bab.seal.lib"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        tools:replace="android:allowBackup">
+        <meta-data android:name="me.2bab.seal.lib.test"
+        android:value="12378198274"/>
+    </application>
+
+</manifest>

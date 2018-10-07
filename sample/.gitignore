@@ -9,3 +9,5 @@
 /build
 /captures
 .externalNativeBuild
+/build-cache
+./build-cache.lock

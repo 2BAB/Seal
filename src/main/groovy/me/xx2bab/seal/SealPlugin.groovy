@@ -1,17 +1,17 @@
 package me.xx2bab.seal
 
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.tasks.MergeManifests
 import me.xx2bab.seal.base.Constants
+import me.xx2bab.seal.base.ManifestPiper
 import me.xx2bab.seal.node.AppAttrsExtension
 import me.xx2bab.seal.node.AppAttrsPreChecker
 import me.xx2bab.seal.replace.AppReplaceValuesExtension
 import me.xx2bab.seal.replace.AppReplaceValuesPreChecker
 import me.xx2bab.seal.xmlns.XmlnsSweepExtension
 import me.xx2bab.seal.xmlns.XmlnsSweeper
-import me.xx2bab.seal.base.ManifestPiper
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.Task
-import org.gradle.api.file.FileTree
 
 /**
  * Created by 2bab
@@ -19,63 +19,55 @@ import org.gradle.api.file.FileTree
 class SealPlugin implements Plugin<Project> {
 
     private GlobalConfig config
-    private FileTree manifestFiles
 
     void apply(Project project) {
+        if (!project.plugins.hasPlugin(AppPlugin.class)) {
+            throw new IllegalStateException("'com.android.application' plugin required.")
+        }
 
         initExtension(project)
 
         project.afterEvaluate {
 
-            if (!config.plugin.enabled || config.plugin.manifests.size() == 0) {
+            if (!config.plugin.enabled) {
                 println(Constants.TAG + ": Plugin is disabled.")
                 return
             }
 
-            config.plugin.manifests.each {
-                def eachFolder = project.fileTree(it) {
-                    include '**/AndroidManifest.xml'
-                }
-                if (manifestFiles == null) {
-                    manifestFiles = eachFolder
-                } else {
-                    manifestFiles += eachFolder
-                }
-            }
-
             project.extensions.android.applicationVariants.all { variant ->
-                // find seal process task
                 String variantName = variant.name.capitalize()
-                Task processManifestTask = project.tasks["process${variantName}Manifest"]
-                processManifestTask.outputs.upToDateWhen { false }
+                variant.outputs.each { output ->
+                    MergeManifests processManifestTask = output.processManifest
+                    // processManifestTask.outputs.upToDateWhen { false }
 
-                // init checkers
-                AppAttrsPreChecker appAttrsChecker = new AppAttrsPreChecker(config.remove.enabled,
-                        config.remove.attrsShouldRemove)
-                AppReplaceValuesPreChecker appReplaceValuesChecker = new AppReplaceValuesPreChecker(config.replace.enabled,
-                        config.replace.valuesShouldRemove)
+                    // PreCheckers
+                    processManifestTask.doFirst("preCheck${variantName}Manifest") {
+                        AppAttrsPreChecker appAttrsChecker = new
+                                AppAttrsPreChecker(config.remove.enabled,
+                                config.remove.attrsShouldRemove)
+                        AppReplaceValuesPreChecker appReplaceValuesChecker = new
+                                AppReplaceValuesPreChecker(config.replace.enabled,
+                                config.replace.valuesShouldRemove)
+                        def manifestFiles = processManifestTask.manifests.files
+                        for (manifestFile in manifestFiles) {
+                            new ManifestPiper(manifestFile)
+                                    .pipe(appAttrsChecker)
+                                    .pipe(appReplaceValuesChecker)
+                                    .dest(manifestFile)
+                        }
+                    }
 
-                // add precheck task
-                def checkTask = project.task("precheck${variantName}Manifest").doLast {
-                    for (manifestFile in manifestFiles) {
-                        new ManifestPiper(manifestFile)
-                                .pipe(appAttrsChecker)
-                                .pipe(appReplaceValuesChecker)
-                                .dest(manifestFile)
+                    // PostProcessors
+                    XmlnsSweeper xmlnsSweeper = new XmlnsSweeper(config.xmlns)
+                    processManifestTask.doLast("postProcess${variantName}Manifest") {
+                        processManifestTask.outputs.getFiles().each {
+                            def processManifestOutputFilePath = it.absolutePath
+                            xmlnsSweeper.sweep(processManifestOutputFilePath)
+                        }
                     }
                 }
-                processManifestTask.dependsOn checkTask
 
-                // init postprocessor
-                XmlnsSweeper xmlnsSweeper = new XmlnsSweeper(config.xmlns)
 
-                // add postprocessor
-                processManifestTask.doLast {
-                    processManifestTask.outputs.getFiles().each {
-                        def processManifestOutputFilePath = it.absolutePath
-                        xmlnsSweeper.sweep(processManifestOutputFilePath)
-                    }
-                }
             }
         }
 
