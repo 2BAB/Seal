@@ -16,11 +16,15 @@ class XmlnsSweeper {
     }
 
     void sweep(String processManifestOutputFilePath) {
+        File manifestFile = new File(processManifestOutputFilePath)
+        sweep(manifestFile)
+    }
+
+    void sweep(File manifestFile) {
         if (!extension.enabled) {
             return
         }
 
-        File manifestFile = new File(processManifestOutputFilePath)
         if (!manifestFile.exists() || manifestFile.name != ANDROID_MANIFEST_NAME) {
             return
         }

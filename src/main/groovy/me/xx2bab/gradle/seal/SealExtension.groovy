@@ -13,11 +13,11 @@ class SealExtension {
     boolean enabled
 
     // File Path for AndroidManifest.xml File or Folder include AndroidManifest.xml
-    Iterable<String> manifests
+    //Iterable<String> manifests
 
     SealExtension(Project project) {
         this.project = project
         enabled = true
-        manifests = []
+//        manifests = []
     }
 }
