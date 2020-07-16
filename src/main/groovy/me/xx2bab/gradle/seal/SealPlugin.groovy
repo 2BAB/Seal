@@ -33,14 +33,9 @@ class SealPlugin implements Plugin<Project> {
                 println(Constants.TAG + ": Plugin is disabled.")
                 return
             }
-            //applicationVariants : debug and release
-            project.extensions.android.applicationVariants.all { variant ->
-                //variant: com.android.build.gradle.internal.api.ApplicationVariantImpl
-                // |-> outputs: DomainObjectCollection<BaseVariantOutput>
-                //     /->processManifestProvider: TaskProvider<ManifestProcessorTask>
 
-                // find seal process task
-                // debug and release
+            project.extensions.android.applicationVariants.all { variant ->
+
                 String variantName = variant.name.capitalize()
 
                 // init checkers
@@ -52,7 +47,6 @@ class SealPlugin implements Plugin<Project> {
                 // init postprocessor
                 XmlnsSweeper xmlnsSweeper = new XmlnsSweeper(config.xmlns)
 
-
                 variant.outputs.all { output ->
                     def processManifestTask = output.processManifestProvider.get()
 
@@ -62,6 +56,7 @@ class SealPlugin implements Plugin<Project> {
 
 
                         for (manifestFile in manifestFiles) {
+                            // filtrate useless manifestFile
                             if (manifestFile.absolutePath.indexOf(project.rootDir.toString()) < 0)
                                 break
 
@@ -72,18 +67,16 @@ class SealPlugin implements Plugin<Project> {
                         }
                     }
 
-
                     processManifestTask.doLast("postProcess${variantName}Manifest") {
                         File files = processManifestTask.manifestOutputDirectory.getAsFile().get()
                         if (files.isDirectory()) {
-                            files.listFiles().each {file->
+                            files.listFiles().each { file ->
                                 xmlnsSweeper.sweep(file)
                             }
-                        }else{
+                        } else {
                             xmlnsSweeper.sweep(files)
                         }
                     }
-
                 }
             }
         }
