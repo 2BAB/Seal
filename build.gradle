@@ -1,5 +1,5 @@
 group 'me.xx2bab.gradle'
-version '1.1.0'
+version '2.0.0.2-SNAPSHOT'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
@@ -7,6 +7,7 @@ apply from: 'bintray.gradle' // push to jcenter
 
 buildscript {
     repositories {
+        google()
         jcenter()
         mavenCentral()
     }
@@ -19,14 +20,16 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         mavenCentral()
     }
 }
 
 dependencies {
-    compile gradleApi()
-    compile localGroovy()
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:4.0.0'
 }
 
 // push to maven local
