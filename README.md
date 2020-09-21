@@ -1,12 +1,10 @@
-![Seal](./Seal.png)
+<img src="./Seal.png" alt="Seal" width="359px">
 
----
-
-[![Download](https://api.bintray.com/packages/2bab/maven/Seal-Manifest-Precheck-Plugin/images/download.svg)](https://bintray.com/2bab/maven/Seal-Manifest-Precheck-Plugin/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Download](https://api.bintray.com/packages/2bab/maven/seal/images/download.svg)](https://bintray.com/2bab/maven/seal/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Seal is a gradle plugin to do precheck of Android Manifest. 
 
-English | [中文说明](http://2bab.me/2017/05/23/gradle-daily-crash-aar-replace-conflict/)
+English | [中文说明](/README_zh.md)
 
 
 ## Conflict / Warning When Manifest Merge 
