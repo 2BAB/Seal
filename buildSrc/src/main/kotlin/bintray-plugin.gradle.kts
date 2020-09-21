@@ -21,7 +21,7 @@ val username = "2BAB"
 
 publishing {
     publications {
-        create<MavenPublication>("scratchPaperPlugin") {
+        create<MavenPublication>("SealPlugin") {
             from(components["java"])
             pom {
                 // Description
@@ -82,7 +82,7 @@ if (System.getenv("GH_ACTION") == "true") {
 bintray{
     user = btUser
     key = btApiKey
-    setPublications("sealPlugin")
+    setPublications("SealPlugin")
     pkg.apply {
         repo = "maven"
         name = projectName
