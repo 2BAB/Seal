@@ -5,8 +5,8 @@ import org.gradle.api.Project
 
 class SealPlugin: Plugin<Project> {
 
-    override fun apply(target: Project) {
-
+    override fun apply(project: Project) {
+        val extension = project.extensions.create("seal", SealExtension::class.java)
     }
 
 }
