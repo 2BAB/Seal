@@ -1,4 +1,4 @@
-<img src="./Seal.png" alt="Seal" width="359px">
+<img src="./seal-banner.png" alt="Seal" width="359px">
 
 [![Download](https://api.bintray.com/packages/2bab/maven/seal/images/download.svg)](https://bintray.com/2bab/maven/seal/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
