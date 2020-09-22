@@ -17,7 +17,7 @@ val licenseUrls = arrayOf("http://www.apache.org/licenses/LICENSE-2.0.txt")
 val inception = "2017"
 
 val username = "2BAB"
-
+val projectId = "seal"
 
 publishing {
     publications {
@@ -25,13 +25,13 @@ publishing {
             from(components["java"])
             pom {
                 // Description
-                name.set(projectName)
+                name.set(projectId)
                 description.set(mavenDesc)
                 url.set(siteUrl)
 
                 // Archive
                 groupId = project.group.toString()
-                artifactId = project.name
+                artifactId = projectId
                 version = project.version.toString()
 
                 // License
