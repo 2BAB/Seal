@@ -39,7 +39,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.android.tools.build:gradle:4.2.0-alpha11")
+    // TODO: Polyfill lib should use api instead of implementation to export access of all polyfill-xxx libs
     implementation("me.2bab:polyfill:0.1.0")
+    implementation("me.2bab:polyfill-manifest:0.1.0")
+    implementation("me.2bab:polyfill-matrix:0.1.0")
 }
 
 tasks.compileJava {
