@@ -1,2 +1,2 @@
-rootProject.name = "SealSample"
-include(":app")
+rootProject.name = "seal-sample"
+include(":app", "library")

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.xx2bab.seal.sample.library">
+
+    <application
+        android:allowBackup="true"
+        android:description="@android:string/ok">
+
+        <service android:name="me.xx2bab.seal.sample.library.LegacyService"/>
+
+    </application>
+
+</manifest>

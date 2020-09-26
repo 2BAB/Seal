@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "me.xx2bab.seal.sample"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
 
@@ -21,10 +21,6 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-        }
-        getByName("release") {
-            isMinifyEnabled = false
-//            proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro')
         }
     }
 
@@ -41,27 +37,29 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":library"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlinVersion"].toString()}")
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.constraintlayout:constraintlayout:2.0.1")
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
 
 seal {
-    beforeMerge("test rule 1")
-            .tag("Application")
-            .attr("allowBackup")
-            .value("true")
-            .deleteAttr()
+    beforeMerge("Remove description attr.")
+        .tag("application")
+        .attr("android:description")
+        .deleteAttr()
 
-    afterMerge("test rule 2")
-            .tag("Application")
-            .attr("orientation")
-            .value("true")
-            .deleteAttr()
+    beforeMerge("Remove invalid service tag.")
+        .tag("service")
+        .attr("android:name")
+        .value("me.xx2bab.seal.sample.library.LegacyService")
+        .deleteTag()
+
+    afterMerge("Remove application's allowBackup.")
+        .tag("application")
+        .attr("android:allowBackup")
+        .value("true")
+        .deleteAttr()
 }
