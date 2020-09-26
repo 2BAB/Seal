@@ -1,1 +1,1 @@
-rootProject.name = "seal-manifest-plugin"
+rootProject.name = "seal-plugin"

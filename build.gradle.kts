@@ -1,12 +1,13 @@
 // must keep the order among `buildscript` `plugins` `repositories` blocks
 buildscript {
     group = "me.2bab"
-    version = "2.0.0.1-SNAPSHOT"
+    version = "2.0.0.2-SNAPSHOT"
 
     repositories {
         google()
         jcenter()
         mavenCentral()
+        mavenLocal()
     }
 }
 
@@ -21,6 +22,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        mavenLocal()
     }
 }
 
@@ -38,11 +40,9 @@ dependencies {
     implementation(localGroovy())
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.android.tools.build:gradle:4.2.0-alpha11")
-    // TODO: Polyfill lib should use api instead of implementation to export access of all polyfill-xxx libs
-    implementation("me.2bab:polyfill:0.1.0")
-    implementation("me.2bab:polyfill-manifest:0.1.0")
-    implementation("me.2bab:polyfill-matrix:0.1.0")
+    implementation("com.android.tools.build:gradle:4.2.0-alpha12")
+
+    implementation("me.2bab:polyfill:0.1.2")
 }
 
 tasks.compileJava {
