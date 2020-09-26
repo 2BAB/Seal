@@ -5,23 +5,23 @@ import java.util.concurrent.atomic.AtomicInteger
 
 abstract class SealExtension: Named {
 
-    private val rules = mutableSetOf<SealRule>()
+    val rules = mutableSetOf<SealRule>()
     private val idGenerator = AtomicInteger(0)
 
     override fun getName(): String {
         return "seal"
     }
 
-    fun beforeMerge(ruleName: String = ""): SealRule {
-        return SealRule(rules,
-                SealRule.HookType.BEFORE_MERGE,
+    fun beforeMerge(ruleName: String = ""): SealRuleBuilder {
+        return SealRuleBuilder(rules,
+                SealRuleBuilder.HookType.BEFORE_MERGE,
                 ruleName,
                 idGenerator.incrementAndGet())
     }
 
-    fun afterMerge(ruleName: String = ""): SealRule {
-        return SealRule(rules,
-                SealRule.HookType.AFTER_MERGE,
+    fun afterMerge(ruleName: String = ""): SealRuleBuilder {
+        return SealRuleBuilder(rules,
+                SealRuleBuilder.HookType.AFTER_MERGE,
                 ruleName,
                 idGenerator.incrementAndGet())
     }

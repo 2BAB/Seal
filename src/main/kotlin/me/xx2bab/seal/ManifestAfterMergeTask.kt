@@ -1,25 +1,32 @@
 package me.xx2bab.seal
 
+import me.xx2bab.seal.SealRuleBuilder.HookType
+import me.xx2bab.seal.dom.GeneralProcessor
+import me.xx2bab.seal.dom.PreciseProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.SetProperty
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
 abstract class ManifestAfterMergeTask : DefaultTask() {
 
+    @get:Input
+    abstract val rules: SetProperty<SealRule>
+
     @get:InputFile
     abstract val mergedManifest: RegularFileProperty
 
-    @get:OutputFile
-    abstract val updatedManifest: RegularFileProperty
+//    @get:OutputFile
+//    abstract val updatedManifest: RegularFileProperty
 
     @TaskAction
     fun afterMerge() {
-//        var manifest = mergedManifest.asFile.get().readText()
-//        manifest = manifest.replace("android:versionCode=\"1\"", "android:versionCode=\"2\"")
-//        println("Writes to " + updatedManifest.get().asFile.getAbsolutePath())
-//        updatedManifest.get().asFile.writeText(manifest)
+        val extractRules = rules.get().filter { it.hookType == HookType.AFTER_MERGE.name }
+        val file = mergedManifest.asFile.get()
+        val processor: GeneralProcessor = PreciseProcessor(extractRules)
+        processor.process(file, file)
     }
 
 }

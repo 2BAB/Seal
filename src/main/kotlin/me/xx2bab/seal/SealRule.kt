@@ -1,11 +1,36 @@
 package me.xx2bab.seal
 
+import org.gradle.api.tasks.Input
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SealRule(private val rules: MutableSet<SealRule>,
-               val hookType: HookType,
-               var ruleName: String,
-               val ruleId: Int) {
+class SealRule {
+
+    @get:Input
+    var ruleId = -1
+
+    @get:Input
+    var ruleName = ""
+
+    @get:Input
+    var tag = ""
+
+    @get:Input
+    var attr = ""
+
+    @get:Input
+    var value = ""
+
+    @get:Input
+    var hookType = ""
+
+    @get:Input
+    var deleteType = ""
+}
+
+class SealRuleBuilder(private val rules: MutableSet<SealRule>,
+                      private val hookType: HookType,
+                      private var ruleName: String,
+                      private val ruleId: Int) {
 
     enum class HookType {
         BEFORE_MERGE, AFTER_MERGE
@@ -18,8 +43,10 @@ class SealRule(private val rules: MutableSet<SealRule>,
     private var tag: String? = null
     private var attr: String? = null
     private var value: String? = null
+
+    private var multiResult: Boolean = false
+
     private val deleteActionSettled = AtomicBoolean(false)
-    private var deleteType: DeleteType = DeleteType.TAG
 
     init {
         if (ruleName.isBlank()) {
@@ -27,18 +54,23 @@ class SealRule(private val rules: MutableSet<SealRule>,
         }
     }
 
-    fun tag(tagFilterRegex: String): SealRule {
+    fun tag(tagFilterRegex: String): SealRuleBuilder {
         tag = tagFilterRegex
         return this
     }
 
-    fun attr(attrFilterRegex: String): SealRule {
+    fun attr(attrFilterRegex: String): SealRuleBuilder {
         attr = attrFilterRegex
         return this
     }
 
-    fun value(valueFilterRegex: String): SealRule {
+    fun value(valueFilterRegex: String): SealRuleBuilder {
         value = valueFilterRegex
+        return this
+    }
+
+    fun multiResult(): SealRuleBuilder {
+        this.multiResult = true
         return this
     }
 
@@ -65,8 +97,15 @@ class SealRule(private val rules: MutableSet<SealRule>,
     }
 
     private fun build(deleteType: DeleteType) {
-        this.deleteType = deleteType
-        rules.add(this)
+        val sealRule = SealRule()
+        ruleId.apply { sealRule.ruleId = this }
+        ruleName.apply { sealRule.ruleName = this }
+        tag?.apply { sealRule.tag = this }
+        attr?.apply { sealRule.attr = this }
+        value?.apply { sealRule.value = this }
+        hookType.apply { sealRule.hookType = this.name }
+        deleteType.apply { sealRule.deleteType = this.name }
+        rules.add(sealRule)
     }
 
 }
