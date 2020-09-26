@@ -7,6 +7,15 @@ Seal is a gradle plugin to do precheck of Android Manifest.
 English | [中文说明](/README_zh.md)
 
 
+## Why use DOM parser API
+
+[Oracle Comparing StAX to Other JAXP APIs](https://docs.oracle.com/javase/tutorial/jaxp/stax/why.html#bnbea)
+
+Since we need to support "Tag delete" feature, and export outputs quickly, from the link above we can know DOM is easiest one to process that. Though it consumes more CPU and memory resources, luckily most of `AndroidManifest.xml` are not complex and with the help of Gradle we can cache the task result if those input(s) didn't change.
+
+
+
+
 ## Conflict / Warning When Manifest Merge 
 
 As we all know, Android provides a tool names [AndroidManifest Merger](https://developer.android.com/studio/build/manifest-merge.html) to manage manifests-merge. But these rules are not enough for some situation like below:   
