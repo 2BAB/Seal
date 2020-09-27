@@ -25,7 +25,7 @@ abstract class ManifestAfterMergeTask : DefaultTask() {
     fun afterMerge() {
         val extractRules = rules.get().filter { it.hookType == HookType.AFTER_MERGE.name }
         val file = mergedManifest.asFile.get()
-        val processor: GeneralProcessor = PreciseProcessor(extractRules)
+        val processor: GeneralProcessor = PreciseProcessor(extractRules, project.logger)
         processor.process(file, file)
     }
 

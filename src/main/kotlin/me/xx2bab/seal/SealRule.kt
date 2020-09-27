@@ -50,7 +50,7 @@ class SealRuleBuilder(private val rules: MutableSet<SealRule>,
 
     init {
         if (ruleName.isBlank()) {
-            ruleName = ruleId.toString()
+            ruleName = "Rule #${ruleId}"
         }
     }
 

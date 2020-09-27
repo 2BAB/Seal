@@ -1,19 +1,24 @@
 package me.xx2bab.seal.dom
 
 import me.xx2bab.seal.Injector
+import me.xx2bab.seal.Injector.sealInfo
 import me.xx2bab.seal.SealRule
 import me.xx2bab.seal.SealRuleBuilder.DeleteType
+import org.gradle.api.logging.Logger
 import org.w3c.dom.*
 import java.io.File
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-abstract class GeneralProcessor(protected val rules: List<SealRule>) {
+abstract class GeneralProcessor(protected val rules: List<SealRule>,
+                                protected val logger: Logger) {
 
     fun process(inputManifest: File, outputManifest: File) {
+        logger.sealInfo("Processing the file: [${inputManifest.absolutePath}]")
         val dom = Injector.newDOMBuilder().parse(inputManifest)
         var matched = false
         rules.forEach b@{ rule ->
+            logger.sealInfo("Taking the rule with type ${rule.hookType}: [${rule.ruleName}]")
             if (rule.tag.isBlank()) {
                 return@b
             }
@@ -29,7 +34,7 @@ abstract class GeneralProcessor(protected val rules: List<SealRule>) {
                 val tag = node as Element
                 if (rule.attr.isBlank()) {
                     if (rule.deleteType == DeleteType.TAG.name) {
-                        tag.parentNode.removeChild(tag)
+                        deleteTag(tag)
                         matched = true
                     }
                     continue
@@ -47,10 +52,10 @@ abstract class GeneralProcessor(protected val rules: List<SealRule>) {
                     attrs.forEach { attr ->
                         when (rule.deleteType) {
                             DeleteType.TAG.name -> {
-                                tag.parentNode.removeChild(tag)
+                                deleteTag(tag)
                             }
                             DeleteType.ATTR.name -> {
-                                tag.removeAttribute(attr.name)
+                                deleteAttr(tag, attr)
                             }
                         }
                     }
@@ -63,10 +68,10 @@ abstract class GeneralProcessor(protected val rules: List<SealRule>) {
                     if (matchValue(rule, attr)) {
                         when (rule.deleteType) {
                             DeleteType.TAG.name -> {
-                                tag.parentNode.removeChild(tag)
+                                deleteTag(tag)
                             }
                             DeleteType.ATTR.name -> {
-                                tag.removeAttribute(attr.name)
+                                deleteAttr(tag, attr)
                             }
                         }
                         matched = true
@@ -82,6 +87,16 @@ abstract class GeneralProcessor(protected val rules: List<SealRule>) {
             val streamResult = StreamResult(outputManifest)
             transformer.transform(domSource, streamResult)
         }
+    }
+
+    private fun deleteTag(tag: Element) {
+        tag.parentNode.removeChild(tag)
+        logger.sealInfo("Deleted tag: [${tag.tagName}]")
+    }
+
+    private fun deleteAttr(tag: Element, attr: Attr) {
+        tag.removeAttribute(attr.name)
+        logger.sealInfo("Deleted attr: [${tag.tagName} - ${attr.name}]")
     }
 
     protected abstract fun findTags(rule: SealRule, dom: Document): NodeList?

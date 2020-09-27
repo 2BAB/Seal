@@ -21,7 +21,7 @@ abstract class ManifestBeforeMergeTask : DefaultTask() {
     @TaskAction
     fun beforeMerge() {
         val extractRules = rules.get().filter { it.hookType == HookType.BEFORE_MERGE.name }
-        val processor: GeneralProcessor = PreciseProcessor(extractRules)
+        val processor: GeneralProcessor = PreciseProcessor(extractRules, project.logger)
         beforeMergeInputs.get().forEach { fsl ->
             val file = fsl.asFile
             processor.process(file, file)
