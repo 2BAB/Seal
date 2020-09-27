@@ -1,0 +1,25 @@
+name: release
+
+on:
+  push:
+    tags:
+        - '*'
+
+jobs:
+  polyfill-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 1.8
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build & Release Seal plugin using Gradle
+        run: chmod +x ./publish.sh | ./publish.sh
+        env:
+          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+          BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
+          GH_DEV_TOKEN: ${{ secrets.GH_DEV_TOKEN }}
