@@ -10,7 +10,7 @@ android {
     compileSdkVersion(30)
     defaultConfig {
         applicationId = "me.xx2bab.seal.sample"
-        minSdkVersion(21)
+        minSdkVersion(23)
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
@@ -45,21 +45,60 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.1")
 }
 
+/**
+ * Except the tag removing, any other delete/update features should always consider the
+ * "tools:replace", "tools:remove", and other official features that manifest merger provided
+ * as higher priority.
+ *
+ * Functionality that Seal provided is more like a silver bullet to save an urgent publish that
+ * is blocked by ManifestMerger. Developers should take responsibility to report bugs to
+ * library authors(who introduced problematic Manifest), ManifestMerger(Google), AAPT2(Google),
+ * which is the true way to solve the merge issues.
+ */
 seal {
-    beforeMerge("Remove description attr.")
+
+    // 0. Two case for before merge.
+    beforeMerge("Remove description attr for library input Manifest.")
         .tag("application")
         .attr("android:description")
         .deleteAttr()
+    beforeMerge("Remove problematic replace attr for library input Manifest.")
+        .tag("application")
+        .attr("tools:replace")
+        .deleteAttr()
 
-    beforeMerge("Remove invalid service tag.")
+    // Full covered cases for after merge (1-6).
+    // 1. THIS IS DANGEROUS, please specify the attr and value if possible.
+    afterMerge("Remove all uses-feature tags.")
+        .tag("uses-feature")
+        .deleteTag()
+
+    // 2. THIS IS DANGEROUS, please specify the value if possible.
+    afterMerge("Remove all custom permission tags.")
+        .tag("permission")
+        .attr("android:protectionLevel")
+        .deleteTag()
+
+    // 3. This is the way we recommend to delete the tag(s).
+    afterMerge("Remove invalid service tag.")
         .tag("service")
         .attr("android:name")
         .value("me.xx2bab.seal.sample.library.LegacyService")
         .deleteTag()
 
-    afterMerge("Remove application's allowBackup.")
+    // You should try to use "tools:remove" or "tools:replace" instead of "deleteAttr" if possible
+    // 4. To delete an attr and its value.
+    afterMerge("Remove application's allowBackup attr.")
         .tag("application")
         .attr("android:allowBackup")
-        .value("true")
         .deleteAttr()
+
+    // You should try to use "tools:remove" or "tools:replace" instead of "deleteAttr" if possible
+    // 5. Also u can specify the value as part of finding params.
+//    afterMerge("Remove application's allowBackup attr.")
+//        .tag("application")
+//        .attr("android:allowBackup")
+//        .value("true")
+//        .deleteAttr()
+
 }

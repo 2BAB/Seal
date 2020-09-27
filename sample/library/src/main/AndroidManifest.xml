@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.xx2bab.seal.sample.library">
 
-    <application
-        android:allowBackup="true"
-        android:description="@android:string/ok">
+    <!-- To simulate an feature declaration the lib requires but we don't actually use -->
+    <uses-feature android:name="android.hardware.usb.host" /> <!-- To simulate an custom permission we don't need -->
+    <permission
+        android:name="com.example.myapp.permission.DEADLY_ACTIVITY"
+        android:description="@android:string/fingerprint_icon_content_description"
+        android:label="@android:string/fingerprint_icon_content_description"
+        android:permissionGroup="android.permission-group.COST_MONEY"
+        android:protectionLevel="dangerous" />
 
-        <service android:name="me.xx2bab.seal.sample.library.LegacyService"/>
+    <!-- To simulate a unused description attr in the library -->
+    <!-- To simulate a problematic replace attr in the library -->
+    <application android:description="@android:string/no"
+        tools:replace="android:description">
+
+        <activity
+            android:name="me.xx2bab.seal.sample.library.ExportActivity"
+            android:exported="true"/>
+
+        <!-- To simulate an invalid service declaration -->
+        <service android:name=".LegacyService" />
 
     </application>
 
