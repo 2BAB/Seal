@@ -57,7 +57,7 @@ dependencies {
  */
 seal {
 
-    // 0. Two case for before merge.
+    // 0. Two cases for before merge.
     beforeMerge("Remove description attr for library input Manifest.")
         .tag("application")
         .attr("android:description")

@@ -1,11 +1,12 @@
 import java.util.Properties
+import org.apache.commons.lang.StringUtils
+
 plugins{
     `maven-publish`
     id("com.jfrog.bintray")
 }
 
-val projectName = "seal"
-val mavenDesc = "A Gradle Plugin helps resolve conflicts when merge Android Manifest files."
+val mavenDesc = "A Gradle Plugin to resolve AndroidManifest.xml merge conflicts."
 val baseUrl = "https://github.com/2BAB/Seal"
 val siteUrl = baseUrl
 val gitUrl = "${baseUrl}.git"
@@ -69,9 +70,9 @@ publishing {
 var btUser: String?
 var btApiKey: String?
 
-if (System.getenv("GH_ACTION") == "true") {
+if (StringUtils.isNotBlank(System.getenv("BINTRAY_USER"))) {
     btUser = System.getenv("BINTRAY_USER")
-    btApiKey = System.getenv("BINTRAY_API_KEY")
+    btApiKey = System.getenv("BINTRAY_APIKEY")
 } else {
     val properties = Properties()
     properties.load(project.rootProject.file("local.properties").inputStream())
@@ -85,12 +86,12 @@ bintray{
     setPublications("SealPlugin")
     pkg.apply {
         repo = "maven"
-        name = projectName
+        name = projectId
         desc = mavenDesc
         websiteUrl = siteUrl
         issueTrackerUrl = issueUrl
         vcsUrl = gitUrl
-        setLabels("2BAB", "Gradle", "Seal", "AndroidManifest", "Process", "Merge", "Fix")
+        setLabels("2BAB", "Gradle", "Seal", "AndroidManifest", "Conflicts", "Merge", "Fix", "Replace", "Remove")
         setLicenses(licenseIds)
         publish = true
         publicDownloadNumbers = true
