@@ -37,7 +37,7 @@ class SealRuleBuilder(private val rules: MutableSet<SealRule>,
     }
 
     enum class DeleteType {
-        TAG, ATTR, VALUE
+        TAG, ATTR
     }
 
     private var tag: String? = null
@@ -54,18 +54,18 @@ class SealRuleBuilder(private val rules: MutableSet<SealRule>,
         }
     }
 
-    fun tag(tagFilterRegex: String): SealRuleBuilder {
-        tag = tagFilterRegex
+    fun tag(tagFilter: String): SealRuleBuilder {
+        tag = tagFilter
         return this
     }
 
-    fun attr(attrFilterRegex: String): SealRuleBuilder {
-        attr = attrFilterRegex
+    fun attr(attrFilter: String): SealRuleBuilder {
+        attr = attrFilter
         return this
     }
 
-    fun value(valueFilterRegex: String): SealRuleBuilder {
-        value = valueFilterRegex
+    fun value(valueFilter: String): SealRuleBuilder {
+        value = valueFilter
         return this
     }
 
@@ -82,11 +82,6 @@ class SealRuleBuilder(private val rules: MutableSet<SealRule>,
     fun deleteAttr() {
         deleteActionPreCheck()
         build(DeleteType.ATTR)
-    }
-
-    fun deleteValue() {
-        deleteActionPreCheck()
-        build(DeleteType.VALUE)
     }
 
     private fun deleteActionPreCheck() {

@@ -8,7 +8,6 @@ import java.io.File
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-
 abstract class GeneralProcessor(protected val rules: List<SealRule>) {
 
     fun process(inputManifest: File, outputManifest: File) {
@@ -68,9 +67,6 @@ abstract class GeneralProcessor(protected val rules: List<SealRule>) {
                             }
                             DeleteType.ATTR.name -> {
                                 tag.removeAttribute(attr.name)
-                            }
-                            DeleteType.VALUE.name -> {
-                                tag.setAttribute(rule.attr, "")
                             }
                         }
                         matched = true
