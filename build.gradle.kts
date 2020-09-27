@@ -2,7 +2,7 @@ import BuildConfig.Deps
 
 buildscript {
     group = "me.2bab"
-    version = "3.0.0-beta01"
+    version = "3.0.0"
 
     repositories {
         google()
