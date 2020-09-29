@@ -92,17 +92,17 @@ seal {
 }
 ```
 
-The configuration part is separated by 3 parts:
+The configuration is separated by 3 parts:
 
 1. To specify the hook entry which you can select from `beforeMerge(ruleName: String)` or `afterMerge(ruleName: String)`
-2. To specify the search params which you can pass `tag(name: String)` `attr(name: String)` `value(name: String)` (currently we doesn't support regex), please pass as precise as you can to locate the element
+2. To specify the search params which you can pass `tag(name: String)` `attr(name: String)` `value(name: String)` (currently we haven't support regex), please pass as precise as you can to locate the element
 3. To specify the delete type which you an select from `deleteTag()` or `deleteAttr()`, to be noticed, only one delete action will be executed, DO NOT call more than one `deleteXXX`
 
 ## Common issues:
 
 > 1. Warning: AndroidManifest.xml already defines debuggable (in http://schemas.android.com/apk/res/android); using existing value in manifest.
 
-That's because some out-of-date libraries set `debuggable` at AndroidManifest, but now we use `build.gradle` to do it. 
+That's because some out-of-date libraries set `debuggable` at AndroidManifest, but now we pass this setting from `build.gradle` / `build.gradle.setting` to AAPT.
 
 > 2. Multiple entries with same key: @android:theme=REPLACE and android:theme=REPLACE  /  Multiple entries with same key: @android:allowBackup=REPLACE and android:allowBackup=REPLACE. 
 
