@@ -67,7 +67,7 @@ seal {
         .attr("tools:replace")
         .deleteAttr()
 
-    // Full covered cases for after merge (1-6).
+    // Full covered cases for after merge (1-5).
     // 1. THIS IS DANGEROUS, please specify the attr and value if possible.
     afterMerge("Remove all uses-feature tags.")
         .tag("uses-feature")

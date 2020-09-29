@@ -15,7 +15,7 @@ buildscript {
         // Switch to test local / remote dependencies
         classpath(fileTree(mapOf("dir" to "../build/libs", "include" to arrayOf("*.jar"))))
         classpath("me.2bab:polyfill:0.1.2")
-//        classpath("me.2bab:seal:2.0.0.2-SNAPSHOT")
+//        classpath("me.2bab:seal:3.0.0")
     }
 
 }
