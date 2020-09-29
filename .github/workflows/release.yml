@@ -6,7 +6,7 @@ on:
         - '*'
 
 jobs:
-  polyfill-release:
+  seal-release:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 1.8
