@@ -10,14 +10,14 @@ Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件。
 需要注意：除了移除标签外，其他删除/更新功能都应该优先考虑 “tools:replace”，“tools:remove” 和其他官方合并器（ManifestMerger）中有的功能。
 
 从功能上来说，Seal 提供的功能更像是一个 **silver bullet**（但可能有人会觉得治标不治本），来**拯救被 ManifestMerger 
-阻碍的紧急发布**。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为才是解决合并冲突的彻底方法。
+阻碍的紧急发布**。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为那才是解决合并冲突的根本方法。
 
 ## 快速开始
 
 1. 编译Seal插件:
 
 ``` kotlin
-// 根项目的build.gradle.kts
+// 根项目的 build.gradle.kts
 buildscript {
     repositories {
         jcenter()
@@ -37,7 +37,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    // Apply this plugin
+    // 引入 Seal 插件
     id("me.2bab.seal")
 }
 ```
@@ -94,7 +94,7 @@ seal {
 }
 ```
 
-整体配置分为3个部分：
+整体配置分为三个部分：
 
 1. 选择 `beforeMerge(ruleName: String)`或`afterMerge(ruleName: String)` 作为 hook 的入口
 2. 通过传入 `tag(name: String)` `attr(name: String)` `value(name: String)` 作为指定的查询参数 （目前还未支持正则表达式），请尽可能的精确以确保定位到相应的元素
