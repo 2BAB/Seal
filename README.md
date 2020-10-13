@@ -102,7 +102,7 @@ The configuration is separated by 3 parts:
 
 > 1. Warning: AndroidManifest.xml already defines debuggable (in http://schemas.android.com/apk/res/android); using existing value in manifest.
 
-That's because some out-of-date libraries set `debuggable` at AndroidManifest, but now we pass this setting from `build.gradle` / `build.gradle.setting` to AAPT.
+That's because some out-of-date libraries set `debuggable` at AndroidManifest, but now we pass this setting from `build.gradle` / `build.gradle.kts` to AAPT.
 
 > 2. Multiple entries with same key: @android:theme=REPLACE and android:theme=REPLACE  /  Multiple entries with same key: @android:allowBackup=REPLACE and android:allowBackup=REPLACE. 
 
