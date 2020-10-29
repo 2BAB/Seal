@@ -1,7 +1,7 @@
 buildscript {
 
     project.extra["kotlinVersion"] = "1.4.10"
-    project.extra["agpVersion"] = "4.2.0-alpha12"
+    project.extra["agpVersion"] = "4.2.0-alpha15"
 
     repositories {
         google()
@@ -14,7 +14,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:${project.extra["agpVersion"]}")
         // Switch to test local / remote dependencies
         classpath(fileTree(mapOf("dir" to "../build/libs", "include" to arrayOf("*.jar"))))
-        classpath("me.2bab:polyfill:0.1.2")
+        classpath("me.2bab:polyfill:0.1.3")
 //        classpath("me.2bab:seal:3.0.0")
     }
 

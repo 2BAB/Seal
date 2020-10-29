@@ -3,8 +3,8 @@ object BuildConfig {
 
     object Deps {
         const val ktStd = "stdlib-jdk8"
-        const val agp = "com.android.tools.build:gradle:4.2.0-alpha12"
-        const val polyfill = "me.2bab:polyfill:0.1.2"
+        const val agp = "com.android.tools.build:gradle:4.2.0-alpha15"
+        const val polyfill = "me.2bab:polyfill:0.1.3"
 
         // Test
         const val junit = "junit:junit:4.12"
