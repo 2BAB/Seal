@@ -127,7 +127,7 @@ Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.
 
 AGP 版本号| 最新支持版本号
 :-----------:|:-----------------:
-4.2.x | 3.0.0
+4.2.x | 3.0.1
 3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
 2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
 
