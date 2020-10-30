@@ -9,8 +9,8 @@ Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件。
 
 需要注意：除了移除标签外，其他删除/更新功能都应该优先考虑 “tools:replace”，“tools:remove” 和其他官方合并器（ManifestMerger）中有的功能。
 
-从功能上来说，Seal 提供的功能更像是一个 **silver bullet**（但可能有人会觉得治标不治本），来**拯救被 ManifestMerger 
-阻碍的紧急发布**。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为那才是解决合并冲突的根本方法。
+从功能上来说，Seal 提供的功能像是一个 **速效救心丸**，来**拯救被 ManifestMerger
+阻碍的紧急发布**（可能有人会觉得治标不治本）。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为那才是解决合并冲突的根本方法。
 
 ## 快速开始
 
@@ -47,7 +47,7 @@ plugins {
 ``` kotlin
 seal {
 
-    // 0. 两个 manifest 合并之前的例子
+    // 0. manifest 合并之前进行操作的两个例子
     beforeMerge("Remove description attr for library input Manifest.")
         .tag("application")
         .attr("android:description")
@@ -69,7 +69,7 @@ seal {
         .attr("android:protectionLevel")
         .deleteTag()
 
-    // 3. 这是我们推荐删除tag的方式
+    // 3. 这是我们推荐删除 tag 的方式
     afterMerge("Remove invalid service tag.")
         .tag("service")
         .attr("android:name")
