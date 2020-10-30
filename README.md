@@ -22,8 +22,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0")
-        classpath("me.2bab:seal:3.0.0")
+        classpath("com.android.tools.build:gradle:4.2.0-alpha15")
+        classpath("me.2bab:seal:3.0.1")
     }
 }
 ```
