@@ -12,7 +12,7 @@
         android:permissionGroup="android.permission-group.COST_MONEY"
         android:protectionLevel="dangerous" />
 
-    <!-- To simulate a unused description attr in the library -->
+    <!-- To simulate an unused description attr in the library -->
     <!-- To simulate a problematic replace attr in the library -->
     <application android:description="@android:string/no"
         tools:replace="android:description">
