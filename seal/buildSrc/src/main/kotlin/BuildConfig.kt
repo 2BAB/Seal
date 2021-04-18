@@ -1,9 +1,17 @@
+import java.util.*
 
 object BuildConfig {
 
+    val props = Properties()
+
+    init {
+        javaClass.classLoader.getResourceAsStream("versions.properties")
+            .use { props.load(it) }
+    }
+
     object Deps {
         const val ktStd = "stdlib-jdk8"
-        const val agp = "com.android.tools.build:gradle:4.2.0-rc01"
+        val agp by lazy { "com.android.tools.build:gradle:${props["agpVersion"]}" }
         const val polyfill = "me.2bab:polyfill:0.2.0"
 
         // Test

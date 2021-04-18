@@ -1,17 +1,17 @@
 buildscript {
 
-    project.extra["kotlinVersion"] = "1.4.32"
-    project.extra["agpVersion"] = "4.2.0-rc01"
+    val props = java.util.Properties()
+    file("./seal/buildSrc/src/main/resources/versions.properties").inputStream().use { props.load(it) }
 
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
         mavenLocal()
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = project.extra["kotlinVersion"].toString()))
-        classpath("com.android.tools.build:gradle:${project.extra["agpVersion"]}")
+        classpath(kotlin("gradle-plugin", version = props["kotlinVersion"]?.toString()))
+        classpath("com.android.tools.build:gradle:${props["agpVersion"]?.toString()}")
         classpath("me.2bab:seal:+")
     }
 

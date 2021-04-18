@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -35,9 +37,12 @@ android {
     }
 }
 
+val props = Properties()
+file("../seal/buildSrc/src/main/resources/versions.properties").inputStream().use { props.load(it) }
+
 dependencies {
     implementation(project(":test-library"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlinVersion"].toString()}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${props["kotlinVersion"]}")
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")

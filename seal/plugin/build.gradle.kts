@@ -1,9 +1,10 @@
 import BuildConfig.Deps
 
 plugins {
-    kotlin("jvm") version "1.4.32"
+    kotlin("jvm")
     id("java-gradle-plugin")
     `github-release`
+    `functional-test-setup`
 }
 
 java {
