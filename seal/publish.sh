@@ -1,1 +1,1 @@
-./gradlew clean bintrayUpload releaseArtifactsToGithub
+./gradlew clean publishSealPluginPublicationToSonatypeRepository releaseArtifactsToGithub

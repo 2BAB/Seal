@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     id("java-gradle-plugin")
     `github-release`
+    `maven-central-publish`
     `functional-test-setup`
 }
 

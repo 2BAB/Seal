@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     group = "me.2bab"
-    version = "3.0.2-rc1"
+    version = BuildConfig.Versions.sealVersion
     repositories {
         mavenCentral()
         google()
