@@ -20,12 +20,12 @@ Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件。
 // 根项目的 build.gradle.kts
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-alpha15")
-        classpath("me.2bab:seal:3.0.1")
+        classpath("com.android.tools.build:gradle:4.2.0-rc01")
+        classpath("me.2bab:seal:3.0.2")
     }
 }
 ```
@@ -36,7 +36,6 @@ buildscript {
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     // 引入 Seal 插件
     id("me.2bab.seal")
 }
@@ -127,7 +126,7 @@ Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.
 
 AGP 版本号| 最新支持版本号
 :-----------:|:-----------------:
-4.2.x | 3.0.1
+4.2.x | 3.0.2
 3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
 2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
 

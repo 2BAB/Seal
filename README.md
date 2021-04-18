@@ -18,12 +18,12 @@ Functionality that Seal provided is more like the **first aid** to **save an urg
 // root project's build.gradle.kts
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-alpha15")
-        classpath("me.2bab:seal:3.0.1")
+        classpath("com.android.tools.build:gradle:4.2.0-rc01")
+        classpath("me.2bab:seal:3.0.2")
     }
 }
 ```
@@ -34,7 +34,6 @@ buildscript {
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     // Apply this plugin
     id("me.2bab.seal")
 }
@@ -124,7 +123,7 @@ Polyfill is only supported & tested on latest **2** Minor versions of Android Gr
 
 AGP Version| Latest Support Version
 :-----------:|:-----------------:
-4.2.x | 3.0.1
+4.2.x | 3.0.2
 3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
 2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
 
