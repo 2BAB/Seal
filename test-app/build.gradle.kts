@@ -23,6 +23,9 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
         }
+        getByName("release") {
+            isMinifyEnabled = false
+        }
     }
 
     sourceSets["main"].java.srcDir("src/main/kotlin")

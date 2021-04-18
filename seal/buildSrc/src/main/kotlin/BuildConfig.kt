@@ -9,10 +9,14 @@ object BuildConfig {
             .use { props.load(it) }
     }
 
+    object Versions {
+        val sealVersion by lazy { props["sealVersion"].toString() }
+    }
+
     object Deps {
         const val ktStd = "stdlib-jdk8"
         val agp by lazy { "com.android.tools.build:gradle:${props["agpVersion"]}" }
-        const val polyfill = "me.2bab:polyfill:0.2.0"
+        const val polyfill = "me.2bab:polyfill:0.2.1"
 
         // Test
         const val junit = "junit:junit:4.12"
