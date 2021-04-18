@@ -27,7 +27,7 @@ jobs:
 
 
       - name: Build & Release Seal plugin to Maven Central
-        run: cd seal/ | chmod +x ./publish.sh | ./publish.sh
+        run: chmod +x ./publish.sh | ./publish.sh
         env:
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
