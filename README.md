@@ -94,7 +94,7 @@ seal {
 
 The configuration is separated by 3 parts:
 
-1. To specify the hook entry which you can select from `beforeMerge(ruleName: String)` or `afterMerge(ruleName: String)`
+1. To specify the hook entry which you can select from `beforeMerge(ruleName: String)` or `afterMerge(ruleName: String)`, `before` intercepts all merge inputs (all libraries, except the main application one), while `after` modifies the merged `AndroidManifest.xml`;
 2. To specify the search params which you can pass `tag(name: String)` `attr(name: String)` `value(name: String)` (currently we haven't support regex), please pass as precise as you can to locate the element
 3. To specify the delete type which you an select from `deleteTag()` or `deleteAttr()`, to be noticed, only one delete action will be executed, DO NOT call more than one `deleteXXX`
 

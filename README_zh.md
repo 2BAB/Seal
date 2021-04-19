@@ -96,9 +96,9 @@ seal {
 
 整体配置分为三个部分：
 
-1. 选择 `beforeMerge(ruleName: String)`或`afterMerge(ruleName: String)` 作为 hook 的入口
-2. 通过传入 `tag(name: String)` `attr(name: String)` `value(name: String)` 作为指定的查询参数 （目前还未支持正则表达式），请尽可能的精确以确保定位到相应的元素
-3. 选择 `deleteTag()` 或 `deleteAttr()` 中的一个来指定删除的类型，需要注意的是，只有一个删除方法会被执行，不要调用超过一个 `deleteXXX` 方法
+1. 选择 `beforeMerge(ruleName: String)` 或 `afterMerge(ruleName: String)` 作为 hook 的入口，其中 `before` 拦截的是执行 Manifest Merge 前所有的参与合并的 `AndroidManifest.xml`（即不包含主 Manifest 的所有其他输入），`after` 拦截的是已合并的 `AndroidManifest.xml`；
+2. 通过传入 `tag(name: String)` `attr(name: String)` `value(name: String)` 作为指定的查询参数 （目前还未支持正则表达式），请尽可能精确地定位相应的元素（避免误改了其他文件）；
+3. 选择 `deleteTag()` 或 `deleteAttr()` 中的一个来指定删除的类型，需要注意的是，只有一个删除方法会被执行，不要调用超过一个 `deleteXXX` 方法。
 
 ## 常见问题:
 
