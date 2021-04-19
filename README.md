@@ -9,7 +9,7 @@ Seal is a Gradle Plugin to resolve AndroidManifest.xml merge conflicts.
 
 To be noticed, except the tag removing, any other delete/update features should always consider the "tools:replace", "tools:remove", and other official features that manifest merger provided as higher priority.
 
-Functionality that Seal provided is more like the **first aid** to **save an urgent publish that is blocked by ManifestMerger**. Developers should take responsibility to report bugs to library authors(who introduced problematic Manifest), ManifestMerger(Google), AAPT2(Google), which is the true way to solve the merge issues.
+Functionality that Seal provided is more like the **first aid** to **save an urgent publish that is blocked by ManifestMerger**, including pre/post processors to intercept the merge flow of AndroidManifest.xml. Developers should take responsibility to report bugs to library authors(who introduced problematic Manifest), ManifestMerger(Google), AAPT2(Google), which is the true way to solve the merge issues.
 
 ## Quick Start
 
@@ -31,7 +31,7 @@ buildscript {
 
 2. Apply plugin:
 
-``` kotlin
+``` Kotlin
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -42,7 +42,7 @@ plugins {
 
 3. Configurations:
 
-``` kotlin
+``` Kotlin
 seal {
 
     // 0. Two cases for before merge.
@@ -56,12 +56,12 @@ seal {
         .deleteAttr()
 
     // Full covered cases for after merge (1-5).
-    // 1. THIS IS DANGEROUS, please specify the attr and value if possible.
+    // 1. The target of this operation is too broad, please specify the attr and value if possible.
     afterMerge("Remove all uses-feature tags.")
         .tag("uses-feature")
         .deleteTag()
 
-    // 2. THIS IS DANGEROUS, please specify the value if possible.
+    // 2. The target of this operation is too broad, please specify the value if possible.
     afterMerge("Remove all custom permission tags.")
         .tag("permission")
         .attr("android:protectionLevel")

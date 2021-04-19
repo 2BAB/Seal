@@ -8,16 +8,16 @@
 
 Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件。
 
-需要注意：除了移除标签外，其他删除/更新功能都应该优先考虑 “tools:replace”，“tools:remove” 和其他官方合并器（ManifestMerger）中有的功能。
+注意：除了删除整个标签（Tag）外，其他删除/更新功能都应该优先考虑 “tools:replace”，“tools:remove” 和其他官方合并器（ManifestMerger）中已有的功能。
 
-从功能上来说，Seal 提供的功能像是一个 **速效救心丸**，来**拯救被 ManifestMerger
-阻碍的紧急发布**（可能有人会觉得治标不治本）。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为那才是解决合并冲突的根本方法。
+从功能上来说，Seal 提供的功能像是一个 **速效救心丸**，通过介入 Manifest 的合并流程，使用前置/后置的 Manifest 修改器，来**拯救被 ManifestMerger
+阻碍的紧急发布**（出现了合并冲突）。开发们有责任向库的开发者（写出这个有问题的 Manifest 的人）, ManifestMerger(Google), AAPT2(Google) 报告bug，因为那才是解决合并冲突的根本方法。
 
 ## 快速开始
 
 1. 编译Seal插件:
 
-``` kotlin
+``` Kotlin
 // 根项目的 build.gradle.kts
 buildscript {
     repositories {
@@ -33,7 +33,7 @@ buildscript {
 
 2. 使用插件:
 
-``` kotlin
+``` Kotlin
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -58,12 +58,12 @@ seal {
         .deleteAttr()
 
     // 对合并后的 manifest 操作的完整示例（1-5）。
-    // 1. 这样的操作十分危险，请尽可能地指定详细的属性和值
+    // 1. 这类操作目标过于宽泛，请尽可能地指定详细的属性和值
     afterMerge("Remove all uses-feature tags.")
         .tag("uses-feature")
         .deleteTag()
 
-    // 2. 这样的操作十分危险，请尽可能地指定详细的值
+    // 2. 这类操作目标过于宽泛，请尽可能地指定详细的值
     afterMerge("Remove all custom permission tags.")
         .tag("permission")
         .attr("android:protectionLevel")
@@ -104,12 +104,12 @@ seal {
 
 > 1. Warning: AndroidManifest.xml already defines debuggable (in http://schemas.android.com/apk/res/android); using existing value in manifest.
 
-这是因为一些过时的库在 AndroidManifest.xml中设置了 `debuggable`，但是现在我们把这个属性从 `build.gradle`/`build.gradle.kts` 传递到AAPT。
+这是因为一些过时的库在 AndroidManifest.xml 中设置了 `debuggable`，但现在我们会把这个属性从 `build.gradle`/`build.gradle.kts` 传递到 AAPT。
 
 
 > 2. Multiple entries with same key: @android:theme=REPLACE and android:theme=REPLACE  /  Multiple entries with same key: @android:allowBackup=REPLACE and android:allowBackup=REPLACE. 
 
-这是因为你使用的一个库定义了 `android:allowBackup=true` 和你自己定义的属性相冲突(`android:allowBackup=false`)。你想使用 `tools:replace="android:allowBackup"` 来覆盖它，但是发现 `tools:replace="android:allowBackup"` 同样出现在那个库的清单文件中，所以出现了上面的冲突。(另见 [this](http://stackoverflow.com/questions/35131182/manifest-merge-in-android-studio))
+这是因为你使用的一个库定义了 `android:allowBackup=true` 和你自己定义的属性相冲突(`android:allowBackup=false`)。你想使用 `tools:replace="android:allowBackup"` 来覆盖它，但是发现 `tools:replace="android:allowBackup"` 同样出现在那个库的清单文件中，所以出现了上面的冲突。(另见[这个问题](http://stackoverflow.com/questions/35131182/manifest-merge-in-android-studio))
 
 > 3. Sometimes xmlns is wrote in application or any other tags except manifest tag, may cause aapt's 
 concealed defect，like debuggable setting of build.gradle would not work;
