@@ -7,7 +7,7 @@ English | [中文说明](/README_zh.md)
 
 Seal is a Gradle Plugin to resolve AndroidManifest.xml merge conflicts.
 
-To be noticed, except the tag removing, any other delete/update features should always consider the "tools:replace", "tools:remove", and other official features that manifest merger provided as higher priority.
+To be noticed, except the tag removing, any other delete/update features should always consider the "tools:replace", "tools:remove", and other official features that [ManifestMerger](https://developer.android.com/studio/build/manifest-merge) provided as higher priority.
 
 Functionality that Seal provided is more like the **first aid** to **save an urgent publish that is blocked by ManifestMerger**, including pre/post processors to intercept the merge flow of AndroidManifest.xml. Developers should take responsibility to report bugs to library authors(who introduced problematic Manifest), ManifestMerger(Google), AAPT2(Google), which is the true way to solve the merge issues.
 
