@@ -1,6 +1,7 @@
 <img src="./seal-banner.png" alt="Seal" width="359px">
 
-[![Download](https://api.bintray.com/packages/2bab/maven/seal/images/download.svg)](https://bintray.com/2bab/maven/seal/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
+ [![Actions Status](https://github.com/2bab/Seal/workflows/CI/badge.svg)](https://github.com/2bab/Seal/actions) [![Apache 2](https://img.shields.io/badge/License-Apache%202-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 
 [English](./README.md) | 中文说明
@@ -103,7 +104,7 @@ seal {
 
 > 1. Warning: AndroidManifest.xml already defines debuggable (in http://schemas.android.com/apk/res/android); using existing value in manifest.
 
-这是因为一些过时的库在清单文件中设置了 `debuggable`，但是现在我们把这个属性从 `build.gradle`/`build.gradle.kts` 传递到AAPT。
+这是因为一些过时的库在 AndroidManifest.xml中设置了 `debuggable`，但是现在我们把这个属性从 `build.gradle`/`build.gradle.kts` 传递到AAPT。
 
 
 > 2. Multiple entries with same key: @android:theme=REPLACE and android:theme=REPLACE  /  Multiple entries with same key: @android:allowBackup=REPLACE and android:allowBackup=REPLACE. 
@@ -122,13 +123,15 @@ tools:replace specified at line:25 for attribute android:authorities, but no new
 
 ## 版本适配
 
-Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.2.x，4.3.x）进行测试。
+Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.2.x，4.3.x）进行测试。从 `3.0.2` 开始，Seal 发布的仓库迁移到 **Maven Central**。
 
 AGP 版本号| 最新支持版本号
 :-----------:|:-----------------:
-4.2.x | 3.0.2
+4.2.x | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
 3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
 2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
+
+（目前本工程基于 AGP 4.2 的最新版本进行开发，在 CI 环境下还会同时编译&测试 4.2/7.0 版本的兼容性）
 
 ## 为什么 Seal 使用 DOM 解析 API 
 

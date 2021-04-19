@@ -1,6 +1,7 @@
 <img src="./seal-banner.png" alt="Seal" width="359px">
 
-[![Download](https://api.bintray.com/packages/2bab/maven/seal/images/download.svg)](https://bintray.com/2bab/maven/seal/_latestVersion) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
+ [![Actions Status](https://github.com/2bab/Seal/workflows/CI/badge.svg)](https://github.com/2bab/Seal/actions) [![Apache 2](https://img.shields.io/badge/License-Apache%202-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 English | [中文说明](/README_zh.md)
 
@@ -119,13 +120,15 @@ Please check [this link](https://stackoverflow.com/questions/42893846/androidman
 
 ## Compatible Specification
 
-Polyfill is only supported & tested on latest **2** Minor versions of Android Gradle Plugin.
+Polyfill is only supported & tested on latest **2** Minor versions of Android Gradle Plugin. Since `3.0.2`, the publish repository has been shifted to **Maven Central**.
 
 AGP Version| Latest Support Version
 :-----------:|:-----------------:
-4.2.x | 3.0.2
+4.2.x | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
 3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
 2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
+
+(The project currently compiles with the latest version of AGP 4.2, and compiles and tests against the both AGP 4.2 and 7.0 on CI.)
 
 ## Why Seal use DOM parser API
 
