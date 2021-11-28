@@ -6,27 +6,26 @@ import me.xx2bab.seal.dom.PreciseProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 
 abstract class ManifestAfterMergeTask : DefaultTask() {
 
-    @get:Input
+    @get:Nested
     abstract val rules: SetProperty<SealRule>
 
     @get:InputFile
     abstract val mergedManifest: RegularFileProperty
 
-//    @get:OutputFile
-//    abstract val updatedManifest: RegularFileProperty
+    @get:OutputFile
+    abstract val updatedManifest: RegularFileProperty
 
     @TaskAction
     fun afterMerge() {
         val extractRules = rules.get().filter { it.hookType == HookType.AFTER_MERGE.name }
-        val file = mergedManifest.asFile.get()
+        val inputFile = mergedManifest.asFile.get()
+        val outputFile = updatedManifest.asFile.get()
         val processor: GeneralProcessor = PreciseProcessor(extractRules, project.logger)
-        processor.process(file, file)
+        processor.process(inputFile, outputFile)
     }
 
 }

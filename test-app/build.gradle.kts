@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -7,15 +5,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("30.0.3")
+    compileSdk = 30
+    buildToolsVersion = "30.0.3"
     defaultConfig {
         applicationId = "me.xx2bab.seal.sample"
-        minSdkVersion(23)
-        targetSdkVersion(30)
+        minSdk = 23
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,12 +37,9 @@ android {
     }
 }
 
-val props = Properties()
-file("../seal/buildSrc/src/main/resources/versions.properties").inputStream().use { props.load(it) }
-
 dependencies {
     implementation(project(":test-library"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${props["kotlinVersion"]}")
+    implementation(deps.kotlin.std)
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
@@ -108,4 +102,9 @@ seal {
 //        .value("true")
 //        .deleteAttr()
 
+}
+project.tasks.whenTaskAdded {
+    if (this is com.android.build.gradle.tasks.ProcessMultiApkApplicationManifest) {
+        println("detected ProcessMultiApkApplicationManifest")
+    }
 }

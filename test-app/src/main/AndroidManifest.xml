@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="me.xx2bab.seal.sample">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="me.xx2bab.seal.sample">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.SealSample"
-        tools:remove="android:description">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.SealSample"
+            tools:remove="android:description">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity android:name="me.xx2bab.seal.sample.library.ExportActivity"
-            android:exported="false"
-            tools:replace="android:exported"/>
+                  android:exported="false"
+                  tools:replace="android:exported"/>
 
     </application>
 

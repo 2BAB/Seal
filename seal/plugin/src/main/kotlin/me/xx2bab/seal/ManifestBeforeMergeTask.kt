@@ -4,15 +4,16 @@ import me.xx2bab.seal.SealRuleBuilder.HookType
 import me.xx2bab.seal.dom.GeneralProcessor
 import me.xx2bab.seal.dom.PreciseProcessor
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.file.FileSystemLocation
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 
 abstract class ManifestBeforeMergeTask : DefaultTask() {
 
-    @get:Input
+    @get:Nested
     abstract val rules: SetProperty<SealRule>
 
     @get:InputFiles
