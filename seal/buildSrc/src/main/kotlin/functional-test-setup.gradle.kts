@@ -6,8 +6,9 @@ plugins {
     idea
 }
 
-val defaultAGPVer = BuildConfig.props["agpVersion"].toString()
-val defaultAGP = BuildConfig.Deps.agp
+val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("deps")
+val defaultAGPVer = versionCatalog.findVersion("agpVer").get().requiredVersion
+val defaultAGP = versionCatalog.findDependency("android-gradle-plugin").get()
 
 val fixtureClasspath: Configuration by configurations.creating
 tasks.pluginUnderTestMetadata {
