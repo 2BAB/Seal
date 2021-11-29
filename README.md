@@ -23,8 +23,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-rc01")
-        classpath("me.2bab:seal:3.0.2")
+        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("me.2bab:seal:3.1.0")
     }
 }
 ```
@@ -122,13 +122,14 @@ Please check [this link](https://stackoverflow.com/questions/42893846/androidman
 
 Polyfill is only supported & tested on latest **2** Minor versions of Android Gradle Plugin. Since `3.0.2`, the publish repository has been shifted to **Maven Central**.
 
-AGP Version| Latest Support Version
-:-----------:|:-----------------:
-4.2.x | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
-3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
-2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
+| AGP Version |                                                           Latest Support Version                                                            |
+|:-----------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+|    7.0.x    | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|    4.2.x    |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
+|    3.0.x    |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
+|    2.3.x    |                                          [1.1.0](https://github.com/2BAB/Seal/releases/tag/1.1.0)                                           |
 
-(The project currently compiles with the latest version of AGP 4.2, and compiles and tests against the both AGP 4.2 and 7.0 on CI.)
+(The project currently compiles with the latest version of AGP 7.0, and compiles and tests against the both AGP 7.0 and 7.1 on CI.)
 
 ## Why Seal use DOM parser API
 
@@ -139,7 +140,7 @@ Since we need to support "delete tag" feature, and export outputs simply, from t
 
 ## License
 
-    Copyright 2017-2021 2BAB
+    Copyright 2017-2022 2BAB
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

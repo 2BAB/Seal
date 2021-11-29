@@ -25,8 +25,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-rc01")
-        classpath("me.2bab:seal:3.0.2")
+        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("me.2bab:seal:3.1.0")
     }
 }
 ```
@@ -123,15 +123,17 @@ tools:replace specified at line:25 for attribute android:authorities, but no new
 
 ## 版本适配
 
-Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.2.x，4.3.x）进行测试。从 `3.0.2` 开始，Seal 发布的仓库迁移到 **Maven Central**。
+Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.2.x，7.0.x）进行测试。从 `3.0.2` 开始，Seal 发布的仓库迁移到 **Maven Central**。
 
-AGP 版本号| 最新支持版本号
-:-----------:|:-----------------:
-4.2.x | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal)
-3.0.x | [2.0.0](https://github.com/2BAB/Seal/tree/2.0.0)
-2.3.x | [1.1.0](https://github.com/2BAB/Seal/tree/1.1.0)
+| AGP 版本号 |                                                                   最新支持版本号                                                                   |
+|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+|  7.0.x  | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|  4.2.x  |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
+|  3.0.x  |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
+|  2.3.x  |                                          [1.1.0](https://github.com/2BAB/Seal/releases/tag/1.1.0)                                           |
 
-（目前本工程基于 AGP 4.2 的最新版本进行开发，在 CI 环境下还会同时编译&测试 4.2/7.0 版本的兼容性）
+
+（目前本工程基于 AGP 7.0 的最新版本进行开发，在 CI 环境下还会同时编译&测试 7.0/7.1 版本的兼容性）
 
 ## 为什么 Seal 使用 DOM 解析 API 
 
@@ -141,7 +143,7 @@ AGP 版本号| 最新支持版本号
 
 ## License
 
-    Copyright 2017-2021 2BAB
+    Copyright 2017-2022 2BAB
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
