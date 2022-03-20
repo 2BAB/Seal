@@ -103,8 +103,3 @@ seal {
 //        .deleteAttr()
 
 }
-project.tasks.whenTaskAdded {
-    if (this is com.android.build.gradle.tasks.ProcessMultiApkApplicationManifest) {
-        println("detected ProcessMultiApkApplicationManifest")
-    }
-}

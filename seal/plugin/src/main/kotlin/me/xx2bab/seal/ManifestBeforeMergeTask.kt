@@ -6,6 +6,8 @@ import me.xx2bab.seal.dom.PreciseProcessor
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.file.FileSystemLocation
+import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.SetProperty
@@ -17,7 +19,7 @@ abstract class ManifestBeforeMergeTask : DefaultTask() {
     abstract val rules: SetProperty<SealRule>
 
     @get:InputFiles
-    abstract val beforeMergeInputs: SetProperty<FileSystemLocation>
+    abstract val beforeMergeInputs: ListProperty<RegularFile>
 
     @TaskAction
     fun beforeMerge() {

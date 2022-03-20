@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    `kotlin-dsl`
     kotlin("plugin.serialization")
     id("java-gradle-plugin")
     `github-release`
