@@ -1,7 +1,7 @@
 [versions]
 kotlinVer = "1.6.10"
 agpVer = "7.1.2"
-polyfillVer = "0.5.0.2-SNAPSHOT"
+polyfillVer = "0.5.0"
 mockitoVer = "3.9.0"
 
 [libraries]
