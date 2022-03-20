@@ -13,7 +13,7 @@ android {
     }
 
     lint {
-        isAbortOnError = false
+//        isAbortOnError = false
     }
 
     sourceSets["main"].java.srcDir("src/main/kotlin")
