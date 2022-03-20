@@ -5,7 +5,7 @@
 
 English | [中文说明](/README_zh.md)
 
-Seal is a Gradle Plugin to resolve AndroidManifest.xml merge conflicts.
+Seal is a Gradle Plugin to resolve AndroidManifest.xml merge conflicts, powered by [New Variant/Artifact API](https://developer.android.com/studio/build/extend-agp) & [Polyfill](https://github.com/2BAB/Polyfill).
 
 To be noticed, except the tag removing, any other delete/update features should always consider the "tools:replace", "tools:remove", and other official features that [ManifestMerger](https://developer.android.com/studio/build/manifest-merge) provided as higher priority.
 
@@ -23,8 +23,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.3")
-        classpath("me.2bab:seal:3.1.0")
+        classpath("com.android.tools.build:gradle:7.1.2")
+        classpath("me.2bab:seal:3.2.0")
     }
 }
 ```
@@ -124,7 +124,8 @@ Polyfill is only supported & tested on latest **2** Minor versions of Android Gr
 
 | AGP Version |                                                           Latest Support Version                                                            |
 |:-----------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
-|    7.0.x    | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|    7.1.x    | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|    7.0.x    |                                          [3.1.0](https://github.com/2BAB/Seal/releases/tag/3.1.0)                                           |
 |    4.2.x    |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
 |    3.0.x    |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
 |    2.3.x    |                                          [1.1.0](https://github.com/2BAB/Seal/releases/tag/1.1.0)                                           |

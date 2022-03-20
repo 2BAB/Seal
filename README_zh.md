@@ -6,7 +6,7 @@
 
 [English](./README.md) | 中文说明
 
-Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件。
+Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件，由[全新的 Variant/Artifact API](https://developer.android.com/studio/build/extend-agp) 和 [Polyfill](https://github.com/2BAB/Polyfill) 框架驱动。
 
 注意：除了删除整个标签（Tag）外，其他删除/更新功能都应该优先考虑 “tools:replace”，“tools:remove” 和其他官方合并器 [ManifestMerger](https://developer.android.com/studio/build/manifest-merge) 中已有的功能。
 
@@ -25,8 +25,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.3")
-        classpath("me.2bab:seal:3.1.0")
+        classpath("com.android.tools.build:gradle:7.1.2")
+        classpath("me.2bab:seal:3.2.0")
     }
 }
 ```
@@ -128,6 +128,7 @@ Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.
 | AGP 版本号 |                                                                   最新支持版本号                                                                   |
 |:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
 |  7.0.x  | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|  7.0.x  |                                          [3.1.0](https://github.com/2BAB/Seal/releases/tag/3.1.0)                                           |
 |  4.2.x  |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
 |  3.0.x  |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
 |  2.3.x  |                                          [1.1.0](https://github.com/2BAB/Seal/releases/tag/1.1.0)                                           |
