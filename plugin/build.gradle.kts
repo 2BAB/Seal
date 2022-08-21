@@ -4,7 +4,6 @@ plugins {
     id("java-gradle-plugin")
     `github-release`
     `maven-central-publish`
-    `functional-test-setup`
 }
 
 java {
@@ -24,7 +23,6 @@ gradlePlugin {
 
 dependencies {
     implementation(deps.polyfill.main)
-    implementation(deps.polyfill.manifest)
 
     implementation(gradleApi())
     implementation(deps.kotlin.std)
@@ -33,9 +31,5 @@ dependencies {
     compileOnly(deps.android.gradle.plugin)
 
     testImplementation(gradleTestKit())
-    testImplementation(deps.junit)
-    testImplementation(deps.mockito)
-    testImplementation(deps.mockitoInline)
-    testImplementation(deps.fastJson)
     testImplementation(deps.zip4j)
 }
