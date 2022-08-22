@@ -1,4 +1,4 @@
-rootProject.name = "seal-root"
+rootProject.name = "seal-sample"
 
 pluginManagement {
     extra["externalDependencyBaseDir"] = "../"

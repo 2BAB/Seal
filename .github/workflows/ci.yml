@@ -40,8 +40,9 @@ jobs:
           key: ${{ runner.os }}-${{ github.job }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-${{ github.job }}-
-      - run: |
-          cd sample/ | ./gradlew clean assembleDebug
+        working-directory: ./sample
+        run: |
+          ./gradlew clean assembleDebug
   checks:
     name: Checks (unit tests and static analysis, TODO:add detekt check after set it up)
     runs-on: ubuntu-latest
