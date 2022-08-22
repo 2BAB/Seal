@@ -1,7 +1,11 @@
 [versions]
 kotlinVer = "1.6.21"
-agpVer = "7.2.2"
 polyfillVer = "0.7.0"
+agpVer = "7.2.2"
+agpPatchIgnoredVer = "7.2.0" # To be used by backport version matching
+agpBackportVer = "7.1.3"
+agpBackportPatchIgnoredVer = "7.1.0" # To be used by backport version matching, e.g. apply backport patches when (7.1.0 <= ver < 7.2.0)
+
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agpVer" }

@@ -1,7 +1,8 @@
 rootProject.name = "seal-root"
 
 pluginManagement {
-    val versions = file("../deps.versions.toml").readText()
+    extra["externalDependencyBaseDir"] = "../"
+    val versions = file(extra["externalDependencyBaseDir"].toString() + "deps.versions.toml").readText()
     val regexPlaceHolder = "%s\\s\\=\\s\\\"([A-Za-z0-9\\.\\-]+)\\\""
     val getVersion = { s: String -> regexPlaceHolder.format(s).toRegex().find(versions)!!.groupValues[1] }
 
@@ -12,7 +13,7 @@ pluginManagement {
     }
     resolutionStrategy {
         eachPlugin {
-            if(requested.id.id == "me.2bab.seal") {
+            if (requested.id.id == "me.2bab.seal") {
                 // It will be replaced by a local module using `includeBuild` below,
                 // thus we just put a generic version (+) here.
                 useModule("me.2bab:seal:+")
@@ -27,6 +28,9 @@ pluginManagement {
     }
 }
 
+val externalDependencyBaseDir = extra["externalDependencyBaseDir"].toString()
+val enabledCompositionBuild = true
+
 dependencyResolutionManagement {
     repositories {
         google()
@@ -35,15 +39,17 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("deps") {
-            from(files("../deps.versions.toml"))
+            from(files(externalDependencyBaseDir + "deps.versions.toml"))
         }
     }
 }
 
 include(":test-app", ":test-library")
-includeBuild("../") {
-    dependencySubstitution {
-        substitute(module("me.2bab:seal"))
-            .using(project(":plugin"))
+if (enabledCompositionBuild) {
+    includeBuild(externalDependencyBaseDir) {
+        dependencySubstitution {
+            substitute(module("me.2bab:seal"))
+                .using(project(":plugin"))
+        }
     }
 }

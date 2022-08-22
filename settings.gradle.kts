@@ -30,4 +30,4 @@ dependencyResolutionManagement {
 }
 
 
-include(":plugin")
+include(":plugin", "functional-test")
