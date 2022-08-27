@@ -49,7 +49,7 @@ if (enabledCompositionBuild) {
     includeBuild(externalDependencyBaseDir) {
         dependencySubstitution {
             substitute(module("me.2bab:seal"))
-                .using(project(":plugin"))
+                .using(project(":seal"))
         }
     }
 }

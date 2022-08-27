@@ -30,4 +30,4 @@ dependencyResolutionManagement {
 }
 
 
-include(":plugin", "functional-test")
+include(":seal", "functional-test")

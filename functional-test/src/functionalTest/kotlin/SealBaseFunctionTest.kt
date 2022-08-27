@@ -27,7 +27,7 @@ class SealBaseFunctionTest {
         fun buildTestProject() {
             if (File("../local.properties").exists()) {
                 println("Publishing libraries to MavenLocal...")
-                ("./gradlew" + " :plugin:publishAllPublicationsToMyMavenlocalRepository"
+                ("./gradlew" + " :seal:publishAllPublicationsToMyMavenlocalRepository"
                         + " --stacktrace").runCommand(File("../"))
                 println("All libraries published.")
             }

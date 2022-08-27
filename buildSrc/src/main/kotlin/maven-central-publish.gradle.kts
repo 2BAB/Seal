@@ -1,4 +1,4 @@
-plugins{
+plugins {
     `maven-publish`
     signing
 }
@@ -32,6 +32,7 @@ if (secretPropsFile.exists()) {
 val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
 }
+
 fun getExtraString(name: String) = ext[name]?.toString()
 
 
@@ -42,6 +43,7 @@ val baseUrl = "https://github.com/2BAB/Seal"
 val siteUrl = baseUrl
 val gitUrl = "$baseUrl.git"
 val issueUrl = "$baseUrl/issues"
+val emailAddr = "xx2bab@gmail.com"
 
 val licenseIds = "Apache-2.0"
 val licenseNames = arrayOf("The Apache Software License, Version 2.0")
@@ -50,48 +52,7 @@ val inception = "2017"
 
 val username = "2BAB"
 
-
 publishing {
-
-    publications {
-        create<MavenPublication>("SealPlugin") {
-            artifact(javadocJar.get())
-            from(components["java"])
-            pom {
-                // Description
-                name.set(projectName)
-                description.set(mavenDesc)
-                url.set(siteUrl)
-
-                // Archive
-                groupId = groupName
-                artifactId = projectName
-                version = BuildConfig.Versions.sealVersion
-
-                // License
-                inceptionYear.set(inception)
-                licenses {
-                    licenseNames.forEachIndexed { ln, li ->
-                        license {
-                            name.set(li)
-                            url.set(licenseUrls[ln])
-                        }
-                    }
-                }
-                developers {
-                    developer {
-                        name.set(username)
-                    }
-                }
-                scm {
-                    connection.set(gitUrl)
-                    developerConnection.set(gitUrl)
-                    url.set(siteUrl)
-                }
-            }
-        }
-    }
-
     // Configure MavenCentral repository
     repositories {
         maven {
@@ -115,4 +76,48 @@ publishing {
 
 signing {
     sign(publishing.publications)
+}
+
+// To add missing information for the gradle plugin coordinator
+afterEvaluate {
+    publishing.publications.all {
+        val publicationName = this.name
+        (this as MavenPublication).apply {
+            if (publicationName == "pluginMaven") {
+                groupId = groupName
+                artifactId = projectName
+            }
+            version = BuildConfig.Versions.sealVersion
+            artifact(javadocJar.get())
+
+            pom {
+                if (publicationName == "pluginMaven") {
+                    name.set(project.name)
+                }
+
+                description.set(mavenDesc)
+                url.set(siteUrl)
+
+                inceptionYear.set(inception)
+                licenses {
+                    licenseNames.forEachIndexed { ln, li ->
+                        license {
+                            name.set(li)
+                            url.set(licenseUrls[ln])
+                        }
+                    }
+                }
+                developers {
+                    developer {
+                        name.set(username)
+                    }
+                }
+                scm {
+                    connection.set(gitUrl)
+                    developerConnection.set(gitUrl)
+                    url.set(siteUrl)
+                }
+            }
+        }
+    }
 }

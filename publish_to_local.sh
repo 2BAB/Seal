@@ -1,1 +1,1 @@
-./gradlew clean :plugin:assemble :plugin:publishToMavenLocal
+./gradlew clean :seal:assemble :seal:publishToMavenLocal

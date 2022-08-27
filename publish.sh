@@ -1,1 +1,1 @@
-./gradlew clean :plugin:publishSealPluginPublicationToSonatypeRepository :plugin:releaseArtifactsToGithub
+./gradlew clean :seal:publishAllPublicationsToSonatypeRepository :seal:releaseArtifactsToGithub

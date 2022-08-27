@@ -15,7 +15,7 @@ java {
 gradlePlugin {
     plugins {
         create("seal") {
-            id = "seal"
+            id = "me.2bab.seal"
             implementationClass ="me.xx2bab.seal.SealPlugin"
         }
     }
