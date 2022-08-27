@@ -1,20 +1,21 @@
 [versions]
-kotlinVer = "1.6.10"
-agpVer = "7.1.2"
-polyfillVer = "0.5.0"
-mockitoVer = "3.9.0"
+kotlinVer = "1.6.21"
+polyfillVer = "0.7.0"
+agpVer = "7.2.2"
+agpPatchIgnoredVer = "7.2.0" # To be used by backport version matching
+agpBackportVer = "7.1.3"
+agpBackportPatchIgnoredVer = "7.1.0" # To be used by backport version matching, e.g. apply backport patches when (7.1.0 <= ver < 7.2.0)
+
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agpVer" }
 kotlin-std = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinVer" }
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm", version = "1.3.1" }
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.3.1" }
+kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version = "1.6.0" }
+hamcrest = { module = "org.hamcrest:hamcrest-library", version = "2.2" }
 polyfill-main = { module = "me.2bab:polyfill", version.ref = "polyfillVer" }
-polyfill-manifest = { module = "me.2bab:android-manifest-parser", version.ref = "polyfillVer" }
-fastJson = { module = "com.alibaba:fastjson", version = "1.2.73" }
+polyfill-manifest-parser = { module = "me.2bab:android-manifest-parser", version.ref = "polyfillVer" }
 zip4j = { module = "net.lingala.zip4j:zip4j", version = "2.6.2" }
-junit = { module = "junit:junit", version = "4.12" }
-mockito = { module = "org.mockito:mockito-core", version.ref = "mockitoVer" }
-mockitoInline = { module = "org.mockito:mockito-inline", version.ref = "mockitoVer" }
 
 [bundles]
 

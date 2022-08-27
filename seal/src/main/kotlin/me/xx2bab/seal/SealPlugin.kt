@@ -19,14 +19,9 @@ class SealPlugin : Plugin<Project> {
 
         androidExtension.onVariants { variant ->
             // Before merge
-            val preUpdateTask = project.tasks.register<ManifestBeforeMergeTask>(
-                "preUpdate${variant.name.capitalize()}Manifest",
-            ) {
-                rules.set(extension.rules)
-            }
+            val preUpdateTaskAction = ManifestBeforeMergeTaskAction(extension.rules.toList(), project.logger)
             variant.artifactsPolyfill.use(
-                taskProvider = preUpdateTask,
-                wiredWith = ManifestBeforeMergeTask::beforeMergeInputs,
+                action = preUpdateTaskAction,
                 toInPlaceUpdate = PolyfilledMultipleArtifact.ALL_MANIFESTS
             )
 
