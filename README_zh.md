@@ -15,25 +15,42 @@ Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件，由[全
 
 ## 快速开始
 
-1. 编译Seal插件:
+**0x01. 引入插件至当前项目的 classpath：**
 
-``` Kotlin
-// 根项目的 build.gradle.kts
+``` kotlin
+// 可选方式 1.
+// 添加 `mavenCentral` 到 `settings.gradle.kts`（或根目录 `build.gradle.kts`） 的 `pluginManagement{}` 内， 
+// 并且声明 seal 插件的 id.
+pluginManagement {
+	repositories {
+        ...
+        mavenCentral()
+    }
+    plugins {
+    	...
+    	id("me.2bab.seal") version "3.3.0" apply false
+    }
+}
+
+
+// 可选方式 2.
+// 使用经典的 `buildscript{}` 引入方式（在根目录的 build.gradle.kts）.
 buildscript {
     repositories {
+        ...
         mavenCentral()
-        google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.1.2")
-        classpath("me.2bab:seal:3.2.0")
+    	...
+        classpath("me.2bab:seal:3.3.0")
     }
 }
 ```
 
-2. 使用插件:
+2. 应用插件:
 
 ``` Kotlin
+// 在 Application 模块的 build.gradle.kts (不要在 Library 模块使用)
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -127,7 +144,8 @@ Polyfill 只支持并在最新的两个 Android Gradle Plugin 版本（例如 4.
 
 | AGP 版本号 |                                                                   最新支持版本号                                                                   |
 |:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
-|  7.0.x  | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|  7.2.x  | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
+|  7.1.x  | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.2bab/seal/badge.svg)](https://search.maven.org/artifact/me.2bab/seal) |
 |  7.0.x  |                                          [3.1.0](https://github.com/2BAB/Seal/releases/tag/3.1.0)                                           |
 |  4.2.x  |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
 |  3.0.x  |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
