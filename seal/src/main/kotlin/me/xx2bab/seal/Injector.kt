@@ -11,7 +11,7 @@ object Injector {
     private const val LOG_TAG = "[Seal]: "
 
     private val documentBuilderFactory = DocumentBuilderFactory.newInstance()
-    private val transformer= TransformerFactory.newInstance().newTransformer()
+    private val transformer = TransformerFactory.newInstance().newTransformer()
 
     fun newDOMBuilder(): DocumentBuilder {
         return documentBuilderFactory.newDocumentBuilder()

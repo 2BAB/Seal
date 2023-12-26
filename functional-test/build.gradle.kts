@@ -7,8 +7,8 @@ group = "me.2bab"
 
 java {
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -24,7 +24,7 @@ testing {
             testType.set(TestSuiteType.FUNCTIONAL_TEST)
             dependencies {
                 implementation(deps.hamcrest)
-                implementation("dev.gradleplugins:gradle-test-kit:7.4.2")
+                implementation("dev.gradleplugins:gradle-test-kit:8.1.1")
                 implementation(deps.kotlin.coroutine)
                 implementation(deps.kotlin.serialization)
                 implementation(deps.zip4j)

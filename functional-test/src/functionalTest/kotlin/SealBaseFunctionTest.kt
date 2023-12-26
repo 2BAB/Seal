@@ -27,7 +27,9 @@ class SealBaseFunctionTest {
         fun buildTestProject() {
             if (File("../local.properties").exists()) {
                 println("Publishing libraries to MavenLocal...")
-                ("./gradlew" + " :seal:publishAllPublicationsToMyMavenlocalRepository"
+                ("./gradlew" + " :seal:publishPluginMavenPublicationToMyMavenlocalRepository"
+                        + " --stacktrace").runCommand(File("../"))
+                ("./gradlew" + " :seal:publishSealPluginMarkerMavenPublicationToMyMavenlocalRepository"
                         + " --stacktrace").runCommand(File("../"))
                 println("All libraries published.")
             }
@@ -62,9 +64,9 @@ class SealBaseFunctionTest {
                         println("assembleFullDebug for [$agpVer]")
 
                         GradleRunner.create()
-                            .withGradleVersion("7.4.2")
+                            .withGradleVersion("8.1.1")
                             .forwardOutput()
-                            .withArguments("clean", "assembleDebug", "--stacktrace")
+                            .withArguments("clean", "assembleDebug", "--stacktrace", "--scan")
                             .withProjectDir(targetProject)
                             .build()
 

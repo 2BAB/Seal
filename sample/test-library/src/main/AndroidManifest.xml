@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="me.xx2bab.seal.sample.library">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- To simulate an feature declaration the lib requires but we don't actually use -->
     <uses-feature android:name="android.hardware.usb.host" /> <!-- To simulate an custom permission we don't need -->
