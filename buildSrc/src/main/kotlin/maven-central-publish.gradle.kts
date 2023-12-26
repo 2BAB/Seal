@@ -29,9 +29,6 @@ if (secretPropsFile.exists()) {
     ext["ossrh.username"] = System.getenv("OSSRH_USERNAME")
     ext["ossrh.password"] = System.getenv("OSSRH_PASSWORD")
 }
-val javadocJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-}
 
 fun getExtraString(name: String) = ext[name]?.toString()
 
@@ -74,13 +71,12 @@ publishing {
     }
 }
 
-signing {
-    sign(publishing.publications)
-}
+
 
 // To add missing information for the gradle plugin coordinator
 afterEvaluate {
     publishing.publications.all {
+        signing.sign(this)
         val publicationName = this.name
         (this as MavenPublication).apply {
             if (publicationName == "pluginMaven") {
@@ -88,8 +84,6 @@ afterEvaluate {
                 artifactId = projectName
             }
             version = BuildConfig.Versions.sealVersion
-            artifact(javadocJar.get())
-
             pom {
                 if (publicationName == "pluginMaven") {
                     name.set(project.name)
