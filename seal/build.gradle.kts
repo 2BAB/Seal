@@ -18,6 +18,7 @@ gradlePlugin {
         create("seal") {
             id = "me.2bab.seal"
             implementationClass ="me.xx2bab.seal.SealPlugin"
+            displayName = "me.2bab.seal"
         }
     }
 }

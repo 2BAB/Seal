@@ -13,14 +13,29 @@ Functionality that Seal provided is more like the **first aid** to **save an urg
 
 ## Quick Start
 
-1. Compile Seal plugin:
+**0x01. Add the plugin to classpath:**
 
 ``` kotlin
-// root project's build.gradle.kts
+// Option 1.
+// Add `mavenCentral` to `pluginManagement{}` on `settings.gradle.kts` (or the root `build.gradle.kts`),
+// and then the seal plugin id.
+pluginManagement {
+	repositories {
+        ...
+        mavenCentral()
+    }
+    plugins {
+    	...
+    	id("me.2bab.seal") version "3.3.0" apply false
+    }
+}
+
+// Option 2.
+// Using classic `buildscript{}` block in root build.gradle.kts.
 buildscript {
     repositories {
+        ...
         mavenCentral()
-        google()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.1.2")
@@ -29,9 +44,10 @@ buildscript {
 }
 ```
 
-2. Apply plugin:
+**0x02. Apply the plugin:**
 
 ``` Kotlin
+// On Application's build.gradle.kts (do not use in Library project)
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -40,7 +56,7 @@ plugins {
 }
 ```
 
-3. Configurations:
+**0x03. Configurations**
 
 ``` Kotlin
 seal {
@@ -130,6 +146,7 @@ Polyfill is only supported & tested on latest **2** Minor versions of Android Gr
 |     4.2.x     |                                          [3.0.2](https://github.com/2BAB/Seal/releases/tag/3.0.2)                                           |
 |     3.0.x     |                                          [2.0.0](https://github.com/2BAB/Seal/releases/tag/2.0.0)                                           |
 |     2.3.x     |                                          [1.1.0](https://github.com/2BAB/Seal/releases/tag/1.1.0)                                           |
+
 
 ## Why Seal use DOM parser API
 

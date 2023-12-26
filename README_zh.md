@@ -15,14 +15,30 @@ Seal 是一款处理 AndroidManifest.xml 合并冲突的 Gradle 插件，由[全
 
 ## 快速开始
 
-1. 编译Seal插件:
+**0x01. 引入插件至当前项目的 classpath：**
 
-``` Kotlin
-// 根项目的 build.gradle.kts
+``` kotlin
+// 可选方式 1.
+// 添加 `mavenCentral` 到 `settings.gradle.kts`（或根目录 `build.gradle.kts`） 的 `pluginManagement{}` 内， 
+// 并且声明 seal 插件的 id.
+pluginManagement {
+	repositories {
+        ...
+        mavenCentral()
+    }
+    plugins {
+    	...
+    	id("me.2bab.seal") version "3.3.0" apply false
+    }
+}
+
+
+// 可选方式 2.
+// 使用经典的 `buildscript{}` 引入方式（在根目录的 build.gradle.kts）.
 buildscript {
     repositories {
+        ...
         mavenCentral()
-        google()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.1.2")
@@ -31,9 +47,10 @@ buildscript {
 }
 ```
 
-2. 使用插件:
+2. 应用插件:
 
 ``` Kotlin
+// 在 Application 模块的 build.gradle.kts (不要在 Library 模块使用)
 plugins {
     id("com.android.application")
     kotlin("android")
