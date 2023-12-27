@@ -58,8 +58,8 @@ fun createGithubReleaseTaskInternal(
 }
 
 task.configure {
-    dependsOn(":signPluginMavenPublication")
-    dependsOn(":sourcesJar")
-    dependsOn(":javadocJar")
-    dependsOn(":jar")
+    dependsOn(":seal:signPluginMavenPublication")
+    dependsOn(":seal:sourcesJar")
+    dependsOn(":seal:javadocJar")
+    dependsOn(":seal:jar")
 }
