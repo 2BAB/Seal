@@ -49,17 +49,17 @@ fun createGithubReleaseTaskInternal(
             tasks.getByName<Jar>("jar")
                 .destinationDirectory
                 .map { it.asFile.listFiles() }
-            // By right we should put all explicit artifacts,
-            // however those artifacts does not have APIs to
-            // be fetched obviously. Thus we put a lot of
-            // `dependesOn()` below and keep here as a folder.
         )
+        // By right we should put all explicit artifacts,
+        // however those artifacts does not have APIs to
+        // be fetched obviously. Thus we put a lot of
+        // `dependesOn()` below and keep here as a folder.
     }
 }
 
 task.configure {
-    dependsOn(":seal:signPluginMavenPublication")
-    dependsOn(":seal:sourcesJar")
-    dependsOn(":seal:javadocJar")
-    dependsOn(":seal:jar")
+    dependsOn("signPluginMavenPublication")
+    dependsOn("sourcesJar")
+    dependsOn("javadocJar")
+    dependsOn("jar")
 }
