@@ -28,7 +28,7 @@ pluginManagement {
     }
     plugins {
     	...
-    	id("me.2bab.seal") version "3.3.0" apply false
+    	id("me.2bab.seal") version "3.4.0" apply false
     }
 }
 
