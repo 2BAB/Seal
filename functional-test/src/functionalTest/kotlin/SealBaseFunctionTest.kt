@@ -64,7 +64,7 @@ class SealBaseFunctionTest {
                         println("assembleFullDebug for [$agpVer]")
 
                         GradleRunner.create()
-                            .withGradleVersion("8.1.1")
+                            .withGradleVersion("8.5")
                             .forwardOutput()
                             .withArguments("clean", "assembleDebug", "--stacktrace", "--scan")
                             .withProjectDir(targetProject)

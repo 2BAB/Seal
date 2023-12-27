@@ -46,20 +46,10 @@ fun createGithubReleaseTaskInternal(
         dryRun.set(false)
         generateReleaseNotes.set(false)
         releaseAssets.from(
-            tasks.getByName<Jar>("jar")
-                .destinationDirectory
-                .map { it.asFile.listFiles() }
-            // By right we should put all explicit artifacts,
-            // however those artifacts does not have APIs to
-            // be fetched obviously. Thus we put a lot of
-            // `dependesOn()` below and keep here as a folder.
+            tasks.getByName<Jar>("jar").archiveFile, // seal-${version}.jar
+            tasks.getByName<Jar>("sourcesJar").archiveFile, // seal-${version}-sources.jar
+            tasks.getByName<Jar>("javadocJar").archiveFile, // seal-${version}-javadoc.jar
+            //tasks.getByName<Sign>("signPluginMavenPublication").outputs, // seal-${version}-asc.jar, seal-${version}-sources-asc.jar, seal-${version}-sources-asc.jar,
         )
     }
-}
-
-task.configure {
-    dependsOn(":signPluginMavenPublication")
-    dependsOn(":sourcesJar")
-    dependsOn(":javadocJar")
-    dependsOn(":jar")
 }
